@@ -5,6 +5,8 @@
 
 enum EventCategory { Concert, Sport, Theater, Festival, Comedy };
 enum Genre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie, Other };
+enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling };
+
 
 struct DateTime{
     int year;
@@ -72,7 +74,44 @@ class ConcertEvent : public Concert {
 };
 
 class Sport : public Event {
+    protected:
+        EventCategory category_ = EventCategory::Sport;
+        SportType type_;
+    
+    public:
+        Sport(int id, std::string event_name, double price, int available_tickets) : 
+            Event(id, event_name, price, available_tickets) {}
+        
+        virtual ~Sport() = default;
+        virtual SportType getSportType() const = 0;
+        EventCategory getEventCategory() const override { return category_; }
+};
 
+class SportEvent : public Sport {
+    protected:
+        std::string away_team_;
+        std::string home_team_;
+        SportType sport_type_;
+        DateTime event_date_;
+    
+    public: 
+        SportEvent(int id, std::string event_name, double price, int available_tickets,
+            DateTime event_date, std::string away_team, std::string home_team, SportType sport_type) :
+            Sport(id, event_name, price, available_tickets), away_team_(away_team),
+            home_team_(home_team),sport_type_(sport_type), event_date_(event_date) {}
+
+        virtual ~SportEvent() = default;
+        SportType getSportType() const override { return sport_type_; }
+
+        std::string getAwayTeam() const { return away_team_; }
+        void setAwayTeam(std::string away_team) { away_team_ = away_team; }
+
+        std::string getHomeTeam() const { return home_team_; }
+        void setHomeTeam(std::string home_team) { home_team_ = home_team; }
+
+        DateTime getDate() const { return event_date_; }
+        void setDate(DateTime date) { event_date_ = date; } 
+        
 };
 
 class Theater : public Event {

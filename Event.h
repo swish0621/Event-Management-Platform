@@ -24,4 +24,29 @@ class Event {
 
 };
 
+class Concert : public Event {
+    protected:
+        EventCategory category_ = EventCategory::Concert;
+    
+    public:
+        Concert(int id, std::string event_name, double price, int available_tickets) : 
+        Event(id, event_name, price, available_tickets) {}
+};
+
+class Sport : public Event {
+
+};
+
+class Theater : public Event {
+
+};
+
+class Festival : public Event {
+
+};
+
+class Comedy : public Event {
+
+};
+
 #endif 

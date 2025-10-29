@@ -4,6 +4,7 @@
 #include <vector>
 
 enum EventCategory { Concert, Sport, Theater, Festival, Comedy };
+enum Genre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie, Other };
 
 class Event {
     protected:
@@ -16,8 +17,10 @@ class Event {
         Event(int id, std::string event_name, double price, int available_tickets) :
             id_(id), event_name_(event_name), price_(price),
             available_tickets_(available_tickets) {}
-        int getId() const {return id_; }
         virtual ~Event() = default;
+
+        int getId() const { return id_; }
+        int getPrice() const { return price_; }
         virtual EventCategory getCategory() const = 0;
         const std::string getEventName() const { return event_name_; }
         bool hasTickets(int qty) const { return (available_tickets_ - qty) >= 0; }
@@ -27,10 +30,13 @@ class Event {
 class Concert : public Event {
     protected:
         EventCategory category_ = EventCategory::Concert;
+        Genre genre_;
     
     public:
         Concert(int id, std::string event_name, double price, int available_tickets) : 
-        Event(id, event_name, price, available_tickets) {}
+            Event(id, event_name, price, available_tickets) {}
+        virtual ~Concert() = default;
+        virtual Genre getGenre() const = 0;
 };
 
 class Sport : public Event {

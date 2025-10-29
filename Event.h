@@ -6,6 +6,15 @@
 enum EventCategory { Concert, Sport, Theater, Festival, Comedy };
 enum Genre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie, Other };
 
+struct DateTime{
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+
+};
+
 class Event {
     protected:
         int id_;
@@ -21,7 +30,7 @@ class Event {
 
         int getId() const { return id_; }
         int getPrice() const { return price_; }
-        virtual EventCategory getCategory() const = 0;
+        virtual EventCategory getEventCategory() const = 0;
         const std::string getEventName() const { return event_name_; }
         bool hasTickets(int qty) const { return (available_tickets_ - qty) >= 0; }
 
@@ -37,6 +46,29 @@ class Concert : public Event {
             Event(id, event_name, price, available_tickets) {}
         virtual ~Concert() = default;
         virtual Genre getGenre() const = 0;
+        EventCategory getEventCategory() const override { return category_; }
+};
+
+class ConcertEvent : public Concert {
+    protected:
+        std::vector<std::string> artists_;
+        Genre genre_;
+        DateTime event_date_;
+    
+    public:
+        ConcertEvent(int id, std::string event_name, double price, int available_tickets, 
+            std::vector<std::string> artists, Genre genre, DateTime event_date) :
+            Concert(id, event_name, price, available_tickets), artists_(artists), genre_(genre), event_date_(event_date) {}
+
+        virtual ~ConcertEvent() = default;
+        Genre getGenre() const override { return genre_; }
+
+        std::vector<std::string> getArtists() const { return artists_; }
+        void setArtists(std::vector<std::string> artists) { artists_ = artists; }
+
+        DateTime getDate() const { return event_date_; }
+        void setDate(DateTime date) { event_date_ = date; }
+
 };
 
 class Sport : public Event {

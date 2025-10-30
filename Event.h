@@ -4,9 +4,9 @@
 #include <vector>
 
 enum EventCategory { Concert, Sport, Theater, Festival, Comedy };
-enum Genre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie, Other };
+enum MusicGenre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie };
 enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling };
-
+enum TheaterGenre { Musical, Opera, Ballet, Play };
 
 struct DateTime{
     int year;
@@ -31,7 +31,7 @@ class Event {
         virtual ~Event() = default;
 
         int getId() const { return id_; }
-        int getPrice() const { return price_; }
+        double getPrice() const { return price_; }
         virtual EventCategory getEventCategory() const = 0;
         const std::string getEventName() const { return event_name_; }
         bool hasTickets(int qty) const { return (available_tickets_ - qty) >= 0; }
@@ -41,29 +41,28 @@ class Event {
 class Concert : public Event {
     protected:
         EventCategory category_ = EventCategory::Concert;
-        Genre genre_;
     
     public:
         Concert(int id, std::string event_name, double price, int available_tickets) : 
             Event(id, event_name, price, available_tickets) {}
         virtual ~Concert() = default;
-        virtual Genre getGenre() const = 0;
+        virtual MusicGenre getGenre() const = 0;
         EventCategory getEventCategory() const override { return category_; }
 };
 
 class ConcertEvent : public Concert {
     protected:
         std::vector<std::string> artists_;
-        Genre genre_;
         DateTime event_date_;
+        MusicGenre genre_;
     
     public:
         ConcertEvent(int id, std::string event_name, double price, int available_tickets, 
-            std::vector<std::string> artists, Genre genre, DateTime event_date) :
+            std::vector<std::string> artists, MusicGenre genre, DateTime event_date) :
             Concert(id, event_name, price, available_tickets), artists_(artists), genre_(genre), event_date_(event_date) {}
 
         virtual ~ConcertEvent() = default;
-        Genre getGenre() const override { return genre_; }
+        MusicGenre getGenre() const override { return genre_; }
 
         std::vector<std::string> getArtists() const { return artists_; }
         void setArtists(std::vector<std::string> artists) { artists_ = artists; }
@@ -111,11 +110,52 @@ class SportEvent : public Sport {
 
         DateTime getDate() const { return event_date_; }
         void setDate(DateTime date) { event_date_ = date; } 
-        
+
 };
 
 class Theater : public Event {
+    protected: 
+        EventCategory category_ = EventCategory::Theater;
 
+    public:
+        Theater(int id, std::string event_name, double price, int available_tickets) : 
+            Event(id, event_name, price, available_tickets) {}
+
+        virtual ~Theater() = default;
+        EventCategory getEventCategory() const override { return category_; }
+        virtual TheaterGenre getTheaterGenre() const = 0;
+
+};
+
+class TheaterEvent : public Theater {
+    protected:
+        std::vector<std::string> performers_;
+        std::string director_;
+        std::string original_title_;
+        bool age_restricted_;
+        DateTime event_date_;
+        TheaterGenre genre_;
+
+    public:
+        TheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, 
+            std::string director, std::vector<std::string> performers, TheaterGenre genre, bool age_restricted, DateTime date) :
+            Theater(id, event_name, price, available_tickets), original_title_(original_title), director_(director), 
+            performers_(performers), genre_(genre), age_restricted_(age_restricted), event_date_(date) {}
+
+        virtual ~TheaterEvent() = default;
+        TheaterGenre getTheaterGenre() const override { return genre_; }
+
+        std::vector<std::string> getPerformers() const { return performers_; }
+        void setPerformers(std::vector<std::string> performers) { performers_ = performers; }
+
+        std::string getOriginalTitle() const { return original_title_; }
+        void setOriginalTitle(std::string title) { original_title_ = title; }
+
+        bool isAgeRestricted() const { return age_restricted_; }
+        void setAgeRestricted(bool is_restricted) { age_restricted_ = is_restricted; }
+
+        DateTime getDate() const { return event_date_; }
+        void setDate(DateTime date) { event_date_ = date; } 
 };
 
 class Festival : public Event {

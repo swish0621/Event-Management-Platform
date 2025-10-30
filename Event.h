@@ -280,6 +280,11 @@ class ConventionEvent : public Convention {
         int getNumDays() const { return num_days_; }
         // modifies the number of days the event lasts 
         void setNumDays(int num_days) { num_days_ = num_days; }
+
+        // returns date and time information for the specific ConventionEvent 
+        DateTime getDate() const { return event_date_; }
+        // modifies date and time information for the specific ConventionEvent 
+        void setDate(DateTime date) { event_date_ = date; } 
 };
 
 // abstract class derived from Event to add shared category of all Comedy type Events
@@ -328,6 +333,11 @@ class ComedyEvent : public Comedy {
         std::vector<std::string> getTopics() const { return topics_; }
         // modifies the topics covered by the performer
         void setTopics(std::vector<std::string> topics) { topics_ = topics; }
+
+        // returns date and time information for the specific ComedyEvent 
+        DateTime getDate() const { return event_date_; }
+        // modifies date and time information for the specific Comedyvent 
+        void setDate(DateTime date) { event_date_ = date; } 
 
 };
 

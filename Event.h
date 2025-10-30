@@ -12,6 +12,7 @@ enum EventCategory { Concert, Sport, Theater, Convention, Comedy };
 enum MusicGenre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie };
 enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling };
 enum TheaterGenre { Musical, Opera, Ballet, Play };
+enum TicketStatus { Available, Limited, SoldOut, ForResale };
 
 // DateTime: stores date and time info about events
 struct DateTime{
@@ -30,6 +31,7 @@ class Event {
         std::string event_name_;
         double price_;
         int available_tickets_;
+        TicketStatus ticket_status_ = TicketStatus::Available;
 
     public:
         // initialize shared members 
@@ -49,6 +51,10 @@ class Event {
         std::string getEventName() const { return event_name_; }
         // ensure the Event has the requested amount of tickets available 
         bool hasTickets(int qty) const { return (available_tickets_ - qty) >= 0; }
+        // used to modify the ticket status of the event
+        void setTicketStatus(TicketStatus status) { ticket_status_ = status; }
+        // returns the TicketStatus of the event
+        TicketStatus getTicketStatus() { return ticket_status_; }
 
 };
 

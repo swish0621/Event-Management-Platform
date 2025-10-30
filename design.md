@@ -89,13 +89,13 @@
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
 | ConventionEvent(int id, std::string event_name, double price, int available_tickets, std::string industry_type, int num_exhibitors, std::vector\<std::string> exhibitors,std::vector\<std::string> sponsors, int num_days, DateTime date) | Initializes ConventionEvent specific attributes and calls Convention constructor for shared attribute handling | Convention(id, event_name, price, available_tickets) |
-| std::string getIndustryType() const override | Overridden fucntion returns IndustryType of the ConventionEvent | None |
-| int getNumExhibitors() const | Returns the number of Exhibitiors | None |
+| std::string getIndustryType() const override | Overridden function returns IndustryType of the ConventionEvent | None |
+| int getNumExhibitors() const | Returns the number of Exhibitors | None |
 | void setNumExhibitors(int num_exhibitors) | Modifies the number of Exhibitors | None |
 | std::vector\<std::string> getExhibitors() const | Returns a list of the Exhibitors | None |
 |void setExhibitors(std::vector\<std::string> exhibitors) | Modifies the Exhibitors at the ConventionEvent | None |
 | std::vector\<std::string> getSponsors() const | Returns a list of the Sponsors | None |
-| void setSponsors(std::vector<std::string> sponsors) | Modifies the Sponsors at the ConventionEvent | None |
+| void setSponsors(std::vector\<std::string> sponsors) | Modifies the Sponsors at the ConventionEvent | None |
 | int getNumDays() const | Returns the number of days the ConventionEvent lasts | None |
 | void setNumDays(int num_days) | Modifies the duration of the ConventionEvent | None |
 | DateTime getDate() const | Returns the DateTime info of the ConventionEvent | None |
@@ -105,6 +105,14 @@
 ### ComedyEvent (Concrete Derived Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
+| ComedyEvent(int id, std::string event_name, double price, int available_tickets, std::string performer, bool age_restricted, std::vector\<std::string> topics, DateTime date) | Initializes ComedyEvent specific attributes and calls Comedy constructor for shared attribute handling | Comedy(id, event_name, price, available_tickets) |
+| std::string getPerformer() const override | Overridden function returns the performer of the ComedyEvent | None |
+| bool getAgeRestricted() const | Returns age restricted status of the ComedyEvent | None |
+| void setAgeRestricted(bool age_restricted) | Modifies the ComedyEvent | None |
+| std::vector\<std::string> getTopics() const | Returns a list of the topics covered at the ComedyEvent | None |
+| void setTopics(std::vector\<std::string> topics) | Modifies the topics | None |
+| DateTime getDate() const | Returns the DateTime info of the ComedyEvent | None |
+| void setDate(DateTime date) | Modifies the DateTime info of the ComedyEvent| None |
 
 ### EventFactory
 | Method | Description | Calls Other Methods |

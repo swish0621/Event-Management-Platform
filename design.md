@@ -10,6 +10,8 @@
 | virtual EventCategory getEventCategory() const = 0| virtual function to return the specific EventCategory of derived classes | None | 
 | std::string getEventName() const | Getter: returns the name of the Event | None | 
 | bool hasTickets(int qty) const | Determines if the Event has the amount of tickets requested still available | None |
+| void setTicketStatus(TicketStatus status) | Setter: modifies the ticket status of the Event | None |
+| TicketStatus getTicketStatus() const | Getter: returns the ticket status of th Event | None |
 
 ### Concert (Abstract Derived Class)
 | Method | Description | Calls Other Methods |
@@ -43,7 +45,7 @@
 ### Comedy (Abstract Derived Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
-| Comedy(int id, std::string event_name, double price, int available_tickets) | Constructor: Initializes shared attributes present in all Convention Events | Event(int id, std::string event_name, double price, int available_tickets) |
+| Comedy(int id, std::string event_name, double price, int available_tickets) | Constructor: Initializes shared attributes present in all Comedy Events | Event(int id, std::string event_name, double price, int available_tickets) |
 | EventCategory getEventCategory() const override | Overridden virtual function returns the EventCategory assigned to the Event | None |
 | virtual std::string getPerformer() const = 0 | Virtual function to be implemented in derived classes to return the performer of the ComedyEvent |
 

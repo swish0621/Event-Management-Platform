@@ -54,7 +54,7 @@ class Event {
         // used to modify the ticket status of the event
         void setTicketStatus(TicketStatus status) { ticket_status_ = status; }
         // returns the TicketStatus of the event
-        TicketStatus getTicketStatus() { return ticket_status_; }
+        TicketStatus getTicketStatus() const { return ticket_status_; }
 
 };
 

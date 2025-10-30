@@ -219,7 +219,7 @@
 ### EventFactory - Singleton EventFactory Design
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
-| EventFactory() | Constructs a EventFactory object | None |
+| EventFactory() | Prevents creation of of public default constructor | None |
 | Event* createConcertEvent(int id, std::string event_name, double price, int available_tickets, std::vector\<std::string> artists, MusicGenre genre, DateTime event_date) |  instantiates a ConcertEvent stored in an Event pointer | Concert(id, event_name, price, available_tickets) |
 | Event* createSportEvent(int id, std::string event_name, double price, int available_tickets, DateTime event_date, std::string away_team, std::string home_team, SportType sport_type) |  instantiates a SportEvent stored in an Event pointer | Sport(id, event_name, price, available_tickets) |
 | Event* createTheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, std::string director, std::vector\<std::string> performers, TheaterGenre genre, bool age_restricted, DateTime date) |  instantiates a TheaterEvent stored in an Event pointer | Theater(id, event_name, price, available_tickets) |
@@ -256,7 +256,7 @@
 ### Attendee (Concrete Derived Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
-| Organizer(int id, std::string name, double balance) | Uses User constuctor to initialize shared attributes | User(id, name, balance) |
+| Attendee(int id, std::string name, double balance) | Uses User constuctor to initialize shared attributes | User(id, name, balance) |
 | std::string getRole() const override | Returns the role of the user | None |
 
 #### Members
@@ -284,8 +284,26 @@
 ### EventManager - Singleton Design 
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
+| static EventManager* get_instance() | Returns or creates a new EventManager | EventManager() |
+| EventManager() | Prevents the creation of a public default constructor | None |
+| User* getUser(int id) const | Returns the user* associated with the id | None |
+| void addUser(User* user) | Creates a new user and stores it in users_ | Organizer(int id, std::string name, double balance), Attendee(int id, std::string name, double balance) |
+| void createEvent(User* organizer) | Creates a new event while prompting user for info | Event* createEvent(EventCategory category), std::vector<Event*> getHistory() const, void setHistory(std::vector<Event*> history) |
+| Event* getEvent(int id) const | Returns an Event pointer matching the id | None |
+| void moveToAvailable(int id) | Removes kvp from unavailable_events_ and adds it to available_events_ | None |
+| void moveToUnavailable(int id) | Removes kvp from available_events_ and adds to unavailable_events_ | None |
+| void printAvailableEvents() const | diplays all available events | None |
+| void purchaseEvent(User* user, int event_id, int qty) | Purchases 1+ tickets to an event and manages side effects | std::vector<Event*> getHistory() const, void setHistory(std::vector<Event*> history), double getBalance() const, void setBalance(double new_balance), double getPrice() const, bool hasTickets(int qty) const, void setTicketStatus(TicketStatus status), TicketStatus getTicketStatus() const |
+| void sellTicket(User* user, int event_id) | Sells one of the users tickets and handles side effects | std::vector<Event*> getHistory() const, void setHistory(std::vector<Event*> history), double getBalance() const, void setBalance(double new_balance), double getPrice() const, bool hasTickets(int qty) const, void setTicketStatus(TicketStatus status), TicketStatus getTicketStatus() const |
+| void printBalance(User* user) const | Displays User balance | None |
+| void printUserHistory(int id) const | Displays User history | None |
 
-
+#### Members
+| Members | Desc |
+| :------ | :--- |
+| std::unordered_map<int, User*> users_ | Stores id, user pointer value pairs | 
+| std::unordered_map<int, Event*> available_events_ | Stores id, pointer value pairs of available events|
+| std::unordered_map<int, Event*> unavailable_events_ | Stores id, pointer value pairs of unavailable events |
 ## Main() Psuedocode
 ```
 int main (){

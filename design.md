@@ -233,13 +233,92 @@
 | :------ | :--- |
 | static EventFactory* instance_ | Singleton instance of EventFactory|
 
-### User
+### User (Abstract Base Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
 
-### EventManager
+### Attendee (Concrete Derived Class)
+| Method | Description | Calls Other Methods |
+| :----- | :---------- | :------------------ |
+
+### Organizer (Concrete Derived Class)
+| Method | Description | Calls Other Methods |
+| :----- | :---------- | :------------------ |
+
+### EventManager - Singleton Design 
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
 
 
 ## Main() Psuedocode
+```
+int main (){
+    eventID = 1
+    userID = 1
+    create instance of EventManager and EventFactory
+    load data from user csv and store in event manager users
+    load data from event csv and store in event manager events
+    prompt user to identify as attendee or organizer
+    prompt user to use an existing user or to make a new user 
+    fetch user id or create new user 
+    while not quit{
+        if attendee {
+            list options {
+                list avaliable events
+                purchase event
+                sell ticket
+                see user history
+                check balance
+                switch users
+                quit
+            }
+            switch input {
+                list available events:
+                    list events with available tickets 
+                purchase event: 
+                    get event price 
+                    add fee for event
+                    verify balance 
+                    decrement balance
+                    append attendee history
+                    decrement event available tickets 
+                Sell ticket:
+                    increment tickets available for event 
+                    remove event from user history 
+                    increment user balance
+                See user history:
+                    list user history
+                check balance:
+                    display balance
+                switch users:
+                    modify user state in main
+                quit:
+                    return 0
+            }
+        }
+        if organizer {
+            list options {
+                create new event
+                list history
+                check balance
+                switch users
+                quit
+            }
+            switch input{
+                create event:
+                    call event factory to create new event 
+                        prompt for event details 
+                    add event to event manager and organizer history
+                list history: 
+                    display history 
+                check balance:
+                    display balance
+                switch user:
+                    modify user state in main
+                quit:
+                    return 0
+            }
+        }
+    }
+}
+```

@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-enum EventCategory { Concert, Sport, Theater, Festival, Comedy };
+enum EventCategory { Concert, Sport, Theater, Convention, Comedy };
 enum MusicGenre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie };
 enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling };
 enum TheaterGenre { Musical, Opera, Ballet, Play };
@@ -59,7 +59,7 @@ class ConcertEvent : public Concert {
     public:
         ConcertEvent(int id, std::string event_name, double price, int available_tickets, 
             std::vector<std::string> artists, MusicGenre genre, DateTime event_date) :
-            Concert(id, event_name, price, available_tickets), artists_(artists), genre_(genre), event_date_(event_date) {}
+            Concert(id, event_name, price, available_tickets), artists_(artists), event_date_(event_date), genre_(genre) {}
 
         virtual ~ConcertEvent() = default;
         MusicGenre getGenre() const override { return genre_; }
@@ -129,12 +129,12 @@ class Theater : public Event {
 
 class TheaterEvent : public Theater {
     protected:
-        std::vector<std::string> performers_;
-        std::string director_;
         std::string original_title_;
+        std::string director_;
+        std::vector<std::string> performers_;
+        TheaterGenre genre_;
         bool age_restricted_;
         DateTime event_date_;
-        TheaterGenre genre_;
 
     public:
         TheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, 
@@ -158,8 +158,49 @@ class TheaterEvent : public Theater {
         void setDate(DateTime date) { event_date_ = date; } 
 };
 
-class Festival : public Event {
+class Convention : public Event {
+    protected:
+        EventCategory category_ = EventCategory::Convention;
 
+    public:
+        Convention(int id, std::string event_name, double price, int available_tickets) :
+            Event(id, event_name, price, available_tickets) {}
+        virtual ~Convention() = default;
+        EventCategory getEventCategory() const override { return category_; }
+        virtual std::string getIndustryType() const = 0;
+};
+
+class ConventionEvent : public Convention {
+    protected:
+        std::string industry_type_;
+        int num_exhibitors_;
+        std::vector<std::string> exhibitors_;
+        std::vector<std::string> sponsors_;
+        int num_days_;
+        DateTime event_date_;
+
+    public:
+        ConventionEvent(int id, std::string event_name, double price, int available_tickets, 
+            std::string industy_type, int num_exhibitors, std::vector<std::string> exhibitors,
+            std::vector<std::string> sponsors, int num_days, DateTime date) :
+            Convention(id, event_name, price, available_tickets), industry_type_(industy_type),
+            num_exhibitors_(num_exhibitors), exhibitors_(exhibitors), sponsors_(sponsors), 
+            num_days_(num_days), event_date_(date) {}
+
+        virtual ~ConventionEvent() = default;
+        std::string getIndustryType() const override { return industry_type_; }
+
+        int getNumExhibitors() const { return num_exhibitors_; }
+        void setNumExhibitors(int num_exhibitors) { num_exhibitors_ = num_exhibitors; }
+
+        std::vector<std::string> getExhibitors() const { return exhibitors_; }
+        void setExhibitors(std::vector<std::string> exhibitors) { exhibitors_ = exhibitors; }
+
+        std::vector<std::string> getSponsors() const { return sponsors_; }
+        void setSponsors(std::vector<std::string> sponsors) { sponsors_ = sponsors; }
+
+        int getNumDays() const { return num_days_; }
+        void setNumDays(int num_days) { num_days_ = num_days; }
 };
 
 class Comedy : public Event {
@@ -179,12 +220,13 @@ class ComedyEvent : public Comedy {
         std::string performer_;
         bool age_restricted_;
         std::vector<std::string> topics_;
+        DateTime event_date_;
     
     public:
         ComedyEvent(int id, std::string event_name, double price, int available_tickets, 
-            std::string performer, bool age_restricted, std::vector<std::string> topics) :
+            std::string performer, bool age_restricted, std::vector<std::string> topics, DateTime date) :
             Comedy(id, event_name, price, available_tickets), performer_(performer), 
-            age_restricted_(age_restricted), topics_(topics) {}
+            age_restricted_(age_restricted), topics_(topics), event_date_(date) {}
 
         virtual ~ComedyEvent() = default;
         std::string getPerformer() const override { return performer_; }

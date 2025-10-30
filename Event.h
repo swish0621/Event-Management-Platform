@@ -163,6 +163,37 @@ class Festival : public Event {
 };
 
 class Comedy : public Event {
+    protected:
+        EventCategory category_ = EventCategory::Comedy;
+    
+    public:
+        Comedy(int id, std::string event_name, double price, int available_tickets) : 
+            Event(id, event_name, price, available_tickets) {}
+        virtual ~Comedy() = default;
+        EventCategory getEventCategory() const override { return category_; }
+        virtual std::string getPerformer() const = 0;
+};
+
+class ComedyEvent : public Comedy {
+    protected:
+        std::string performer_;
+        bool age_restricted_;
+        std::vector<std::string> topics_;
+    
+    public:
+        ComedyEvent(int id, std::string event_name, double price, int available_tickets, 
+            std::string performer, bool age_restricted, std::vector<std::string> topics) :
+            Comedy(id, event_name, price, available_tickets), performer_(performer), 
+            age_restricted_(age_restricted), topics_(topics) {}
+
+        virtual ~ComedyEvent() = default;
+        std::string getPerformer() const override { return performer_; }
+
+        bool getAgeRestricted() const { return age_restricted_; }
+        void setAgeRestricted(bool age_restricted) {age_restricted_ = age_restricted; }
+
+        std::vector<std::string> getTopics() const { return topics_; }
+        void setTopics(std::vector<std::string> topics) { topics_ = topics; }
 
 };
 

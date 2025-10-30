@@ -220,13 +220,13 @@
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
 | EventFactory() | Constructs a EventFactory object | None |
-| Event* createConcertEvent(int id, std::string event_name, double price, int available_tickets, std::vector\<std::string> artists, MusicGenre genre, DateTime event_date) | Instanciates a ConcertEvent stored in an Event pointer | Concert(id, event_name, price, available_tickets) |
-| Event* createSportEvent(int id, std::string event_name, double price, int available_tickets, DateTime event_date, std::string away_team, std::string home_team, SportType sport_type) | Instanciates a SportEvent stored in an Event pointer | Sport(id, event_name, price, available_tickets) |
-| Event* createTheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, std::string director, std::vector\<std::string> performers, TheaterGenre genre, bool age_restricted, DateTime date) | Instanciates a TheaterEvent stored in an Event pointer | Theater(id, event_name, price, available_tickets) |
-| Event* createConventionEvent(int id, std::string event_name, double price, int available_tickets, std::string industry_type, int num_exhibitors, std::vector\<std::string> exhibitors,std::vector\<std::string> sponsors, int num_days, DateTime date) | Instanciates a ConventionEvent stored in an Event pointer | Convention(id, event_name, price, available_tickets) |
-| Event* createComedyEvent(int id, std::string event_name, double price, int available_tickets, std::string performer, bool age_restricted, std::vector\<std::string> topics, DateTime date) | Instanciates a ComedyEvent stored in an Event pointer | Comedy(id, event_name, price, available_tickets) |
+| Event* createConcertEvent(int id, std::string event_name, double price, int available_tickets, std::vector\<std::string> artists, MusicGenre genre, DateTime event_date) |  instantiates a ConcertEvent stored in an Event pointer | Concert(id, event_name, price, available_tickets) |
+| Event* createSportEvent(int id, std::string event_name, double price, int available_tickets, DateTime event_date, std::string away_team, std::string home_team, SportType sport_type) |  instantiates a SportEvent stored in an Event pointer | Sport(id, event_name, price, available_tickets) |
+| Event* createTheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, std::string director, std::vector\<std::string> performers, TheaterGenre genre, bool age_restricted, DateTime date) |  instantiates a TheaterEvent stored in an Event pointer | Theater(id, event_name, price, available_tickets) |
+| Event* createConventionEvent(int id, std::string event_name, double price, int available_tickets, std::string industry_type, int num_exhibitors, std::vector\<std::string> exhibitors,std::vector\<std::string> sponsors, int num_days, DateTime date) |  instantiates a ConventionEvent stored in an Event pointer | Convention(id, event_name, price, available_tickets) |
+| Event* createComedyEvent(int id, std::string event_name, double price, int available_tickets, std::string performer, bool age_restricted, std::vector\<std::string> topics, DateTime date) |  instantiates a ComedyEvent stored in an Event pointer | Comedy(id, event_name, price, available_tickets) |
 | static EventFactory* getInstance() | Returns the EventFactory instance or creates one | EventFactory() | 
-| Event* createEvent(EventCategory category) | Resposible for calling the correct helper function to create a Event object | Event* createConcertEvent(), Event* createSportEvent(), Event* createTheaterEvent(), Event* createConventionEvent(), Event* createComedyEvent() |
+| Event* createEvent(EventCategory category) | Responsible for calling the correct helper function to create a Event object | Event* createConcertEvent(), Event* createSportEvent(), Event* createTheaterEvent(), Event* createConventionEvent(), Event* createComedyEvent() |
 
 #### Members
 | Members | Desc |
@@ -236,14 +236,50 @@
 ### User (Abstract Base Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
+| User(int id, std::string name, double balance) | Initialize all values shared by Users | None | 
+| virtual std::string getRole() const = 0 | Virtual fucntion to be defined by derived classes to return the role of the user |
+| int getId() const | Return the id of a user | None |
+| std::string getName() const | Return user name | None |
+| double getBalance() const | Return user balance | None |
+| void setBalance(double new_balance) | Modifies the balance of a user | None |
+| std::vector<Event*> getHistory() const | Returns the user history | None |
+| void setHistory(std::vector<Event*> history) | Modifies the user history | None |
+
+#### Members
+| Members | Desc |
+| :------ | :--- |
+| id_ | Store unique id |
+| std::string name_ | Store user name |
+| double balance_ | Store user balance |
+| std::vector<Event*> history_ | Store user history 
 
 ### Attendee (Concrete Derived Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
+| Organizer(int id, std::string name, double balance) | Uses User constuctor to initialize shared attributes | User(id, name, balance) |
+| std::string getRole() const override | Returns the role of the user | None |
+
+#### Members
+| Inherited Members | Desc |
+| :------ | :--- |
+| id_ | Store unique id |
+| std::string name_ | Store user name |
+| double balance_ | Store user balance |
+| std::vector<Event*> history_ | Store user history 
 
 ### Organizer (Concrete Derived Class)
 | Method | Description | Calls Other Methods |
 | :----- | :---------- | :------------------ |
+| Organizer(int id, std::string name, double balance) | Uses User constuctor to initialize shared attributes | User(id, name, balance) |
+| std::string getRole() const override | Returns the role of the user | None |
+
+#### Members
+| Inherited Members | Desc |
+| :------ | :--- |
+| id_ | Store unique id |
+| std::string name_ | Store user name |
+| double balance_ | Store user balance |
+| std::vector<Event*> history_ | Store user history 
 
 ### EventManager - Singleton Design 
 | Method | Description | Calls Other Methods |
@@ -264,7 +300,7 @@ int main (){
     while not quit{
         if attendee {
             list options {
-                list avaliable events
+                list available events
                 purchase event
                 sell ticket
                 see user history

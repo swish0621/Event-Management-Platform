@@ -1,0 +1,65 @@
+#ifndef EVENTMANAGER_H
+#define EVENTMANAGER_H
+#include <string> 
+#include <vector> 
+#include <unordered_map>
+#include "Event.h"
+#include "User.h"
+
+class EventManager {
+  private:
+    EventManager(){}
+    static EventManager* instance_;
+    EventManager(const EventManager&) = delete;
+    EventManager& operator=(const EventManager&) = delete;
+    
+    std::unordered_map<int, User*> users_;
+    std::unordered_map<int, Event*> available_events_;
+    std::unordered_map<int, Event*> unavailable_events_;
+
+  public:
+    // get instance function will return the singular EventManager object or create it if not already exists. 
+    static EventManager* get_instance(){
+      if(instance_ == nullptr){
+        instance_ = new EventManager();
+      }
+      return instance_;
+    }
+
+    // finds the user by the users id 
+    User* getUser(int id) const;
+
+    // adds a new user to users_ 
+    void addUser(User* user);
+
+    // call event factory and prompt user to enter event details 
+    // adds event to available events
+    void createEvent(User* organizer);
+
+    // returns an event: searches both available and unavailable
+    Event* getEvent(int id) const;
+    
+    // moves an event from unavailable (for resale)
+    void moveToAvailable(int id);
+
+    // moves an event to unavailable (sold out)
+    void moveToUnavailable(int id);
+
+    // prints all available events 
+    void printAvailableEvents() const;
+
+    // adds event to user history, decrements available tickets and decrements user balance 
+    void purchaseEvent(User* user, int event_id, int qty);
+
+    // displays user balance 
+    void printBalance(User* user) const;
+
+    // increment user balance, increment available tickets, removes from user tickets
+    void sellTicket(User* user, int event_id);
+
+    // displays user event history 
+    void printUserHistory(int id) const;
+
+};
+
+#endif

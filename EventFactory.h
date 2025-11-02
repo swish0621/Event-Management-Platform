@@ -1,6 +1,7 @@
 #ifndef EVENTFACTORY_H
 #define EVENTFACTORY_H
 #include "Event.h"
+#include <iostream>
 
 class EventFactory {
     private:
@@ -9,7 +10,7 @@ class EventFactory {
         EventFactory& operator=(const EventFactory&) = delete;
         EventFactory(const EventFactory&) = delete;
 
-        void getConcertEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
+        void getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date);
 
         void getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
@@ -24,6 +25,10 @@ class EventFactory {
 
         void getComedyEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date);
+
+        MusicGenre getGenre();
+
+        DateTime getDateTime();
 
     public:
         static EventFactory* getInstance() {

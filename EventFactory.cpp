@@ -113,6 +113,34 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
                 event_date = getDateTime();
             }
 
+
+void EventFactory::getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
+            DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type) {
+                std::cout << "INPUT EVENT NAME:";
+                std::getline(std::cin, event_name);
+                std::cout << std::endl;
+
+                std::cout << "INPUT EVENT PRICE:";
+                std::cin >> price;
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
+                std::cin >> available_tickets;
+                std::cin.ignore(1, '\n');
+                std::cout << std::endl;
+
+                event_date = getDateTime();
+
+                std::cout << "INPUT AWAY TEAM:";
+                std::cin >> away_team;
+                std::cout << std::endl;
+
+                std::cout << "INPUT HOME TEAM:";
+                std::cin >> home_team;
+                std::cout << std::endl;
+
+
+            }
 // prompt user selection to return the correct music genre
 MusicGenre EventFactory::getGenre() {
 
@@ -176,6 +204,33 @@ DateTime EventFactory::getDateTime() {
     return date;
 }
 
+SportType EventFactory::getSportType() {
+    std::cout << "SELECT SPORT TYPE:" << std::endl << "1: FOOTBALL" << std::endl << "2: HOCKEY" << std::endl 
+        << "3: SOCCER" << std::endl << "4: BASKETBALL" << std::endl << "5: GOLF" << std::endl << "6: MMA"
+        << std::endl << "7: WESTLING" << std::endl;
+    
+    std::string input;
+    std::cin >> input;
+    int selection = std::stoi(input);
+    switch(selection){
+        case 1:
+            return SportType::Football;
+        case 2:
+            return SportType::Hockey;
+        case 3:
+            return SportType::Soccer;
+        case 4:
+            return SportType::Basketball;
+        case 5:
+            return SportType::Golf;
+        case 6:
+            return SportType::MMA;
+        case 7:
+            return SportType::Wrestling;
+        default:
+            throw std::invalid_argument("Invalid Type. Aborting...");
+    }
+}
 // read all necessary data from a csv file and call the correct helper based on the EventCategory
 Event* EventFactory::createEventFromCSV(int id, std::string line_items) { return nullptr; }
 

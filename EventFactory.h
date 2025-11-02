@@ -29,7 +29,9 @@ class EventFactory {
         MusicGenre getGenre();
 
         DateTime getDateTime();
-
+        
+        SportType getSportType();
+        
     public:
         static EventFactory* getInstance() {
             if(instance_ == nullptr) { 

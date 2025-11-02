@@ -9,6 +9,12 @@ class EventFactory {
         EventFactory& operator=(const EventFactory&) = delete;
         EventFactory(const EventFactory&) = delete;
 
+        void getConcertEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
+            std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date);
+
+        void getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
+            DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type);
+
     public:
         static EventFactory* getInstance() {
             if(instance_ == nullptr) { 
@@ -20,7 +26,7 @@ class EventFactory {
 
         // will prompt user to input inprmation about the event to identify/call the correct creation function 
         // handle required side effects of event creation, adding to EventManager storage, adding to Organizer history
-        Event* createEvent(EventCategory category);
+        Event* createEvent(int id, EventCategory category);
 
         // to be used when loading Event data from csv, accepts one Event at a time 
         Event* createEventFromCSV(int id, std::string line_items);

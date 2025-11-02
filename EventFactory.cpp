@@ -62,6 +62,23 @@ Event* EventFactory::createEvent(int id, EventCategory event) {
             getConventionEventValues(id, event_name, price, available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
             return new ConventionEvent(id, event_name, price, available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
         }
+        case EventCategory::Comedy:
+        {
+            std::string event_name;
+            double price;
+            int available_tickets;
+            std::string performer;
+            bool age_restricted;
+            std::vector<std::string> topics;
+            DateTime event_date;
+
+            getComedyEventValues(id, event_name, price, available_tickets, performer, age_restricted, topics, event_date);
+            return new ComedyEvent(id, event_name, price, available_tickets, performer, age_restricted, topics, event_date);
+        }
+        default:
+        {
+            return nullptr;
+        }
     }
 }
 

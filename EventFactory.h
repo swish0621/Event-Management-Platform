@@ -21,6 +21,10 @@ class EventFactory {
         void getConventionEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
             std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
             std::vector<std::string>& sponsors, int& num_days, DateTime& date);
+
+        void getComedyEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
+            std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date);
+
     public:
         static EventFactory* getInstance() {
             if(instance_ == nullptr) { 

@@ -32,6 +32,21 @@ Event* EventFactory::createEvent(int id, EventCategory event) {
             getSportEventValues(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
             return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
         }
+        case EventCategory::Theater:
+        {
+            std::string event_name;
+            double price;
+            int available_tickets;
+            std::string original_title;
+            std::string director;
+            std::vector<std::string> performers;
+            TheaterGenre genre;
+            bool age_restricted;
+            DateTime event_date;
+
+            getTheaterEventValues(id, event_name, price, available_tickets, original_title, director, performers, genre, age_restricted, event_date);
+            return new TheaterEvent(id, event_name, price, available_tickets, original_title, director, performers, genre, age_restricted, event_date);
+        }
     }
 }
 

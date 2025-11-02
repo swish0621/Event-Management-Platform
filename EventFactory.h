@@ -15,6 +15,8 @@ class EventFactory {
         void getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type);
 
+        void getTheaterEventValues(int& id, std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
+            std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date);
     public:
         static EventFactory* getInstance() {
             if(instance_ == nullptr) { 

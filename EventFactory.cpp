@@ -110,7 +110,7 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
 
                 genre = getGenre();
 
-
+                event_date = getDateTime();
             }
 
 // prompt user selection to return the correct music genre
@@ -147,7 +147,34 @@ MusicGenre EventFactory::getGenre() {
     }
 }
 
-DateTime EventFactory::getDateTime() {}
+DateTime EventFactory::getDateTime() {
+    std::string s_year;
+    std::cout << "ENTER YEAR OF EVENT, FORMAT(2025):" << std::endl;
+    std::cin >> s_year;
+    int year = std::stoi(s_year);
+
+    std::string s_month;
+    std::cout << "ENTER MONTH OF EVENT, FORMAT(09):" << std::endl;
+    std::cin >> s_month;
+    int month = std::stoi(s_month);
+
+    std::string s_day;
+    std::cout << "ENTER DAY OF EVENT, FORMAT(09):" << std::endl;
+    std::cin >> s_day;
+    int day = std::stoi(s_day);
+
+    std::string s_hour;
+    std::cout << "ENTER HOUR OF EVENT, MILITARY FORMAT(18):" << std::endl;
+    std::cin >> s_hour;
+    int hour = std::stoi(s_hour);
+
+    std::string s_min;
+    std::cout << "ENTER MINUTE OF EVENT, FORMAT(58):" << std::endl;
+    std::cin >> s_min;
+    int min = std::stoi(s_min);
+    DateTime date = {year, month, day, hour, min};
+    return date;
+}
 
 // read all necessary data from a csv file and call the correct helper based on the EventCategory
 Event* EventFactory::createEventFromCSV(int id, std::string line_items) { return nullptr; }

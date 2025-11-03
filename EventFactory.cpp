@@ -422,14 +422,85 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
         }
         case EventCategory::Sport:
         {
+            std::string event_name = variables.at(1);
+            double price = std::stod(variables.at(2));
+            int available_tickets = std::stoi(variables.at(3));
+            std::vector<std::string> date_items = split(variables.at(4), '|');
+            DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
+            std::string away_team = variables.at(5);
+            std::string home_team = variables.at(6);
 
+            SportType sport_type;
+            std::string s_type = variables.at(7);
+            if(s_type == "Football") { sport_type = SportType::Football; }
+            else if(s_type == "Hockey") { sport_type = SportType::Hockey; }
+            else if(s_type == "Soccer") { sport_type = SportType::Soccer; }
+            else if(s_type == "Basketball") { sport_type = SportType::Basketball; }
+            else if(s_type == "Golf") { sport_type = SportType::Golf; }
+            else if(s_type == "MMA") { sport_type = SportType::MMA; }
+            else if(s_type == "Wrestling") { sport_type = SportType::Wrestling; }
+
+            return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
         }
         case EventCategory::Theater:
-        {}
+        {
+            std::string event_name = variables.at(1);
+            double price = std::stod(variables.at(2));
+            int available_tickets = std::stoi(variables.at(3));
+            std::string title = variables.at(4);
+            std::string director = variables.at(5);
+            std::vector<std::string> performers = split(variables.at(6), '|');
+            
+            TheaterGenre genre;
+            std::string s_genre = variables.at(7);
+            if(s_genre == "Musical") { genre = TheaterGenre::Musical; }
+            else if(s_genre == "Opera") { genre = TheaterGenre::Opera; }
+            else if(s_genre == "Ballet") { genre = TheaterGenre::Ballet; }
+            else if(s_genre == "Play") { genre = TheaterGenre::Play; }
+
+            bool age_restricted = true;
+            if(variables.at(8) == "false") { age_restricted = false; }
+
+            std::vector<std::string> date_items = split(variables.at(9), '|');
+            DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
+
+            return new TheaterEvent(id, event_name, price, available_tickets, title, director, performers, genre, age_restricted, event_date);
+        }
         case EventCategory::Convention:
-        {}
+        {
+            std::string event_name = variables.at(1);
+            double price = std::stod(variables.at(2));
+            int available_tickets = std::stoi(variables.at(3));
+            std::string industry_type = variables.at(4);
+            int num_exhibitors = std::stoi(variables.at(5));
+            std::vector<std::string> exhibitors = split(variables.at(6), '|');
+            std::vector<std::string> sponsors = split(variables.at(7), '|');
+            int num_days = std::stoi(variables.at(8));
+
+            std::vector<std::string> date_items = split(variables.at(9), '|');
+            DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
+
+            return new ConventionEvent(id, event_name, price,available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
+        }
         case EventCategory::Comedy:
-        {}
+        {
+            std::string event_name = variables.at(1);
+            double price = std::stod(variables.at(2));
+            int available_tickets = std::stoi(variables.at(3));
+            std::string performer = variables.at(4);
+
+            bool age_restricted = true;
+            if(variables.at(5) == "false") { age_restricted = false; }
+
+            std::vector<std::string> topics = split(variables.at(6), '|');
+
+            std::vector<std::string> date_items = split(variables.at(7), '|');
+            DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
+
+            return new ComedyEvent(id, event_name, price, available_tickets, performer, age_restricted, topics, event_date);
+        }
+        default:
+            throw std::invalid_argument("Unknown Event category...");
     }
 }
 

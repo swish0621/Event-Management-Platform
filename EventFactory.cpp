@@ -95,7 +95,9 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
-                std::cin >> price;
+                std::string s_price;
+                std::cin >> s_price;
+                price = std::stod(s_price);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
@@ -122,7 +124,9 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
-                std::cin >> price;
+                std::string s_price;
+                std::cin >> s_price;
+                price = std::stod(s_price);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
@@ -133,11 +137,11 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
                 event_date = getDateTime();
 
                 std::cout << "INPUT AWAY TEAM:";
-                std::cin >> away_team;
+                std::getline(std::cin, away_team);
                 std::cout << std::endl;
 
                 std::cout << "INPUT HOME TEAM:";
-                std::cin >> home_team;
+                std::getline(std::cin, home_team);
                 std::cout << std::endl;
 
                 sport_type = getSportType();
@@ -150,7 +154,9 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
-                std::cin >> price;
+                std::string s_price;
+                std::cin >> s_price;
+                price = std::stod(s_price);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
@@ -159,11 +165,11 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
                 std::cout << std::endl;
 
                 std::cout << "INPUT ORIGINAL TITLE:";
-                std::cin >> original_title;
+                std::getline(std::cin, original_title);
                 std::cout << std::endl;
 
                 std::cout << "INPUT DIRECTOR NAME:";
-                std::cin >> director;
+                std::getline(std::cin, director);
                 std::cout << std::endl;
 
                 std::cout << "INPUT COMMA SEPARATED LIST OF PERFORMERS:";
@@ -192,7 +198,9 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
-                std::cin >> price;
+                std::string s_price;
+                std::cin >> s_price;
+                price = std::stod(s_price);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
@@ -201,7 +209,7 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 std::cout << std::endl;
 
                 std::cout << "INPUT INDUSTRY TYPE:";
-                std::cin >> industry_type;
+                std::getline(std::cin, industry_type);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF EXHIBITORS:";
@@ -229,7 +237,42 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 std::cout << std::endl;
 
                 date = getDateTime();
+            }
 
+void EventFactory::getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
+            std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date) {
+                std::cout << "INPUT EVENT NAME:";
+                std::getline(std::cin, event_name);
+                std::cout << std::endl;
+
+                std::cout << "INPUT EVENT PRICE:";
+                std::string s_price;
+                std::cin >> s_price;
+                price = std::stod(s_price);
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
+                std::cin >> available_tickets;
+                std::cin.ignore(1, '\n');
+                std::cout << std::endl;
+
+                std::cout << "INPUT PERFORMER NAME:";
+                std::getline(std::cin, performer);
+                std::cout << std::endl;
+
+                std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
+                std::string bool_age_restricted;
+                std::cin >> bool_age_restricted;
+                age_restricted = std::stoi(bool_age_restricted) - 1;
+                std::cout << std::endl;
+
+                std::cout << "INPUT COMMA SEPARATED LIST OF TOPICS:";
+                std::string topics_input; 
+                std::getline(std::cin, topics_input);
+                topics = split(topics_input);
+                std::cout << std::endl;
+
+                date = getDateTime();
 
             }
 // prompt user selection to return the correct music genre

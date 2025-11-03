@@ -3,6 +3,7 @@
 #include "Event.h"
 #include <stdexcept>
 
+// FACTORY ASSUMES ALL VALID INPUT!!!
 
 EventFactory* EventFactory::instance_ = nullptr;
 
@@ -33,7 +34,7 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
             std::string home_team;
             SportType sport_type;
 
-            getSportEventValues(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
+            getSportEventValues(event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
             return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
         }
         case EventCategory::Theater:
@@ -48,7 +49,7 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
             bool age_restricted;
             DateTime event_date;
 
-            getTheaterEventValues(id, event_name, price, available_tickets, original_title, director, performers, genre, age_restricted, event_date);
+            getTheaterEventValues(event_name, price, available_tickets, original_title, director, performers, genre, age_restricted, event_date);
             return new TheaterEvent(id, event_name, price, available_tickets, original_title, director, performers, genre, age_restricted, event_date);
         }
         case EventCategory::Convention:
@@ -63,7 +64,7 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
             int num_days;
             DateTime event_date;
 
-            getConventionEventValues(id, event_name, price, available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
+            getConventionEventValues(event_name, price, available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
             return new ConventionEvent(id, event_name, price, available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
         }
         case EventCategory::Comedy:
@@ -76,7 +77,7 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
             std::vector<std::string> topics;
             DateTime event_date;
 
-            getComedyEventValues(id, event_name, price, available_tickets, performer, age_restricted, topics, event_date);
+            getComedyEventValues(event_name, price, available_tickets, performer, age_restricted, topics, event_date);
             return new ComedyEvent(id, event_name, price, available_tickets, performer, age_restricted, topics, event_date);
         }
         default:
@@ -114,7 +115,7 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
             }
 
 
-void EventFactory::getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
+void EventFactory::getSportEventValues(std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type) {
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
@@ -138,6 +139,96 @@ void EventFactory::getSportEventValues(int& id, std::string& event_name, double&
                 std::cout << "INPUT HOME TEAM:";
                 std::cin >> home_team;
                 std::cout << std::endl;
+
+                sport_type = getSportType();
+            }
+
+void EventFactory::getTheaterEventValues(std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
+            std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date) {
+                std::cout << "INPUT EVENT NAME:";
+                std::getline(std::cin, event_name);
+                std::cout << std::endl;
+
+                std::cout << "INPUT EVENT PRICE:";
+                std::cin >> price;
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
+                std::cin >> available_tickets;
+                std::cin.ignore(1, '\n');
+                std::cout << std::endl;
+
+                std::cout << "INPUT ORIGINAL TITLE:";
+                std::cin >> original_title;
+                std::cout << std::endl;
+
+                std::cout << "INPUT DIRECTOR NAME:";
+                std::cin >> director;
+                std::cout << std::endl;
+
+                std::cout << "INPUT COMMA SEPARATED LIST OF PERFORMERS:";
+                std::string performers_input; 
+                std::getline(std::cin, performers_input);
+                performers = split(performers_input);
+                std::cout << std::endl;
+
+                genre = getTheaterGenre();
+
+                std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
+                std::string bool_age_restricted;
+                std::cin >> bool_age_restricted;
+                age_restricted = std::stoi(bool_age_restricted) - 1;
+                std::cout << std::endl;
+
+                date = getDateTime();
+
+            }
+
+void EventFactory::getConventionEventValues(std::string& event_name, double& price, int& available_tickets, 
+            std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
+            std::vector<std::string>& sponsors, int& num_days, DateTime& date) {
+                std::cout << "INPUT EVENT NAME:";
+                std::getline(std::cin, event_name);
+                std::cout << std::endl;
+
+                std::cout << "INPUT EVENT PRICE:";
+                std::cin >> price;
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
+                std::cin >> available_tickets;
+                std::cin.ignore(1, '\n');
+                std::cout << std::endl;
+
+                std::cout << "INPUT INDUSTRY TYPE:";
+                std::cin >> industry_type;
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF EXHIBITORS:";
+                std::string s_num_exhibitors;
+                std::cin >> s_num_exhibitors;
+                num_exhibitors = std::stoi(s_num_exhibitors);
+                std::cout << std::endl;
+
+                std::cout << "INPUT COMMA SEPARATED LIST OF EXHIBITORS:";
+                std::string exhibitors_input; 
+                std::getline(std::cin, exhibitors_input);
+                exhibitors = split(exhibitors_input);
+                std::cout << std::endl;
+
+                std::cout << "INPUT COMMA SEPARATED LIST OF SPONSORS:";
+                std::string sponsors_input; 
+                std::getline(std::cin, sponsors_input);
+                sponsors = split(sponsors_input);
+                std::cout << std::endl;
+
+                std::cout << "INPUT NUMBER OF THE CONVENTION LASTS:";
+                std::string s_num_days;
+                std::cin >> s_num_days;
+                num_days = std::stoi(s_num_days);
+                std::cout << std::endl;
+
+                date = getDateTime();
 
 
             }
@@ -229,6 +320,27 @@ SportType EventFactory::getSportType() {
             return SportType::Wrestling;
         default:
             throw std::invalid_argument("Invalid Type. Aborting...");
+    }
+}
+//Musical, Opera, Ballet, Play
+TheaterGenre EventFactory::getTheaterGenre() {
+    std::cout << "SELECT THEATER GENRE:" << std::endl << "1: MUSICAL" << std::endl << "2: OPERA" << std::endl 
+        << "3: BALLET" << std::endl << "4: PLAY" << std::endl;
+    
+    std::string input;
+    std::cin >> input;
+    int selection = std::stoi(input);
+    switch(selection){
+        case 1:
+            return TheaterGenre::Musical;
+        case 2:
+            return TheaterGenre::Opera;
+        case 3:
+            return TheaterGenre::Ballet;
+        case 4:
+            return TheaterGenre::Play;
+        default:
+            throw std::invalid_argument("Invalid Genre. Aborting...");
     }
 }
 // read all necessary data from a csv file and call the correct helper based on the EventCategory

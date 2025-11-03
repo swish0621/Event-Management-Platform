@@ -13,17 +13,17 @@ class EventFactory {
         void getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date);
 
-        void getSportEventValues(int& id, std::string& event_name, double& price, int& available_tickets,
+        void getSportEventValues(std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type);
 
-        void getTheaterEventValues(int& id, std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
+        void getTheaterEventValues(std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
             std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date);
 
-        void getConventionEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
+        void getConventionEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
             std::vector<std::string>& sponsors, int& num_days, DateTime& date);
 
-        void getComedyEventValues(int& id, std::string& event_name, double& price, int& available_tickets, 
+        void getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date);
 
         MusicGenre getGenre();
@@ -31,7 +31,9 @@ class EventFactory {
         DateTime getDateTime();
         
         SportType getSportType();
-        
+
+        TheaterGenre getTheaterGenre();
+
     public:
         static EventFactory* getInstance() {
             if(instance_ == nullptr) { 

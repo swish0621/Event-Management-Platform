@@ -108,7 +108,7 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
                 std::cout << "INPUT COMMA SEPARATED LIST OF ARTISTS:";
                 std::string artists_input; 
                 std::getline(std::cin, artists_input);
-                artists = split(artists_input);
+                artists = split(artists_input, ',');
                 std::cout << std::endl;
 
                 genre = getGenre();
@@ -175,7 +175,7 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
                 std::cout << "INPUT COMMA SEPARATED LIST OF PERFORMERS:";
                 std::string performers_input; 
                 std::getline(std::cin, performers_input);
-                performers = split(performers_input);
+                performers = split(performers_input, ',');
                 std::cout << std::endl;
 
                 genre = getTheaterGenre();
@@ -221,13 +221,13 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 std::cout << "INPUT COMMA SEPARATED LIST OF EXHIBITORS:";
                 std::string exhibitors_input; 
                 std::getline(std::cin, exhibitors_input);
-                exhibitors = split(exhibitors_input);
+                exhibitors = split(exhibitors_input, ',');
                 std::cout << std::endl;
 
                 std::cout << "INPUT COMMA SEPARATED LIST OF SPONSORS:";
                 std::string sponsors_input; 
                 std::getline(std::cin, sponsors_input);
-                sponsors = split(sponsors_input);
+                sponsors = split(sponsors_input, ',');
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF THE CONVENTION LASTS:";
@@ -269,7 +269,7 @@ void EventFactory::getComedyEventValues(std::string& event_name, double& price, 
                 std::cout << "INPUT COMMA SEPARATED LIST OF TOPICS:";
                 std::string topics_input; 
                 std::getline(std::cin, topics_input);
-                topics = split(topics_input);
+                topics = split(topics_input, ',');
                 std::cout << std::endl;
 
                 date = getDateTime();
@@ -387,7 +387,51 @@ TheaterGenre EventFactory::getTheaterGenre() {
     }
 }
 // read all necessary data from a csv file and call the correct helper based on the EventCategory
-Event* EventFactory::createEventFromCSV(int id, std::string line_items) { return nullptr; }
+Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
+    std::vector<std::string> variables = split(line_items, ',');
+    EventCategory category;
+    if(variables.front() == "Concert"){ category = EventCategory::Concert; }
+    else if(variables.front() == "Sport"){ category = EventCategory::Sport; }
+    else if(variables.front() == "Theater"){ category = EventCategory::Theater; }
+    else if(variables.front() == "Convention"){ category = EventCategory::Convention; }
+    else if(variables.front() == "Comedy"){ category = EventCategory::Comedy; }
+    switch(category){
+        case EventCategory::Concert:
+        {
+            std::string event_name = variables.at(1);
+            double price = std::stod(variables.at(2));
+            int available_tickets = std::stoi(variables.at(3));
+            std::vector<std::string> artists = split(variables.at(4), '|');
+
+            MusicGenre genre;
+            std::string s_genre = variables.at(5);
+            if(s_genre == "Rock") { genre = MusicGenre::Rock; }
+            else if(s_genre == "Pop") { genre = MusicGenre::Pop; }
+            else if(s_genre == "Hiphop") { genre = MusicGenre::Hiphop; }
+            else if(s_genre == "Country") { genre = MusicGenre::Country; }
+            else if(s_genre == "Jazz") { genre = MusicGenre::Jazz; }
+            else if(s_genre == "Classical") { genre = MusicGenre::Classical; }
+            else if(s_genre == "Electronic") { genre = MusicGenre::Electronic; }
+            else if(s_genre == "Metal") { genre = MusicGenre::Metal; }
+            else if(s_genre == "Indie") { genre = MusicGenre::Indie; }
+
+            std::vector<std::string> date_items = split(variables.at(6), '|');
+            DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
+            
+            return new ConcertEvent(id, event_name, price, available_tickets, artists, genre, event_date);
+        }
+        case EventCategory::Sport:
+        {
+
+        }
+        case EventCategory::Theater:
+        {}
+        case EventCategory::Convention:
+        {}
+        case EventCategory::Comedy:
+        {}
+    }
+}
 
 
 

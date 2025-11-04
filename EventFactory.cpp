@@ -1,6 +1,5 @@
 #include "EventFactory.h"
 #include "StringFunctions.h"
-#include "Event.h"
 #include <stdexcept>
 
 // FACTORY ASSUMES ALL VALID INPUT!!!
@@ -395,6 +394,10 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
     else if(variables.front() == "Theater"){ category = EventCategory::Theater; }
     else if(variables.front() == "Convention"){ category = EventCategory::Convention; }
     else if(variables.front() == "Comedy"){ category = EventCategory::Comedy; }
+    else {
+        throw std::invalid_argument("ERROR IN CSV PARSING...");
+        return nullptr;
+    }
     switch(category){
         case EventCategory::Concert:
         {
@@ -414,6 +417,10 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             else if(s_genre == "Electronic") { genre = MusicGenre::Electronic; }
             else if(s_genre == "Metal") { genre = MusicGenre::Metal; }
             else if(s_genre == "Indie") { genre = MusicGenre::Indie; }
+            else {
+                throw std::invalid_argument("ERROR IN CSV PARSING...");
+                return nullptr;
+            }
 
             std::vector<std::string> date_items = split(variables.at(6), '|');
             DateTime event_date = {std::stoi(date_items.at(0)), std::stoi(date_items.at(1)), std::stoi(date_items.at(2)), std::stoi(date_items.at(3)), std::stoi(date_items.at(4))};
@@ -439,7 +446,10 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             else if(s_type == "Golf") { sport_type = SportType::Golf; }
             else if(s_type == "MMA") { sport_type = SportType::MMA; }
             else if(s_type == "Wrestling") { sport_type = SportType::Wrestling; }
-
+            else {
+                throw std::invalid_argument("ERROR IN CSV PARSING...");
+                return nullptr;
+            }
             return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
         }
         case EventCategory::Theater:
@@ -457,7 +467,10 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             else if(s_genre == "Opera") { genre = TheaterGenre::Opera; }
             else if(s_genre == "Ballet") { genre = TheaterGenre::Ballet; }
             else if(s_genre == "Play") { genre = TheaterGenre::Play; }
-
+            else {
+                throw std::invalid_argument("ERROR IN CSV PARSING...");
+                return nullptr;
+            }
             bool age_restricted = true;
             if(variables.at(8) == "false") { age_restricted = false; }
 

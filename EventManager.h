@@ -24,7 +24,7 @@ class EventManager {
 
   public:
     // get instance function will return the singular EventManager object or create it if not already exists. 
-    static EventManager* get_instance(){
+    static EventManager* getInstance(){
       if(instance_ == nullptr){
         instance_ = new EventManager();
         instance_->event_id_ = 0;
@@ -48,7 +48,7 @@ class EventManager {
     // adds a new user to users_ 
     void addUser(User* user);
 
-    User* createUser(int id);
+    User* createUser();
 
     // call event factory and prompt user to enter event details 
     // adds event to available events
@@ -76,7 +76,7 @@ class EventManager {
     void sellTicket(User* user, int event_id);
 
     // displays user event history 
-    void printUserHistory(int id) const;
+    void printUserHistory(User* user) const;
 
 };
 

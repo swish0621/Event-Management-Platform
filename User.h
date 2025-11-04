@@ -4,17 +4,21 @@
 #include <vector>
 #include "Event.h"
 
+
+enum Role { Organizer, Attendee };
+
 class User {
     protected:
         int id_;
         std::string name_;
         double balance_;
         std::vector<Event*> history_;
+        Role role_;
     
     public:
         User(int id, std::string name, double balance) : id_(id), name_(name), balance_(balance){}
         virtual ~User() = default;
-        virtual std::string getRole() const = 0;
+        virtual Role getRole() const = 0;
 
         int getId() const { return id_; }
         std::string getName() const { return name_; }
@@ -27,15 +31,15 @@ class User {
 class Organizer : public User {
     public: 
         Organizer(int id, std::string name, double balance) :
-        User(id, name, balance) {}
-        std::string getRole() const override { return "Organizer"; }
+        User(id, name, balance) { role_ = Role::Organizer; }
+        Role getRole() const override { return role_; }
 };
 
 class Attendee : public User {
     public: 
         Attendee(int id, std::string name, double balance) :
-        User(id, name, balance) {}
-        std::string getRole() const override { return "Attendee"; }
+        User(id, name, balance) { role_ = Role::Attendee; }
+        Role getRole() const override { return role_; }
 };
 
 #endif

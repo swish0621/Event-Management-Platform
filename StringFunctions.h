@@ -21,7 +21,6 @@ std::vector<std::string> split(std::string input, char delimiter){
     std::vector<std::string> store;
     int i = 0;
     int start = 0; 
-    int end = 0;
     for(auto it = input.begin(); it != input.end(); it++, i++){
         if(*it == delimiter){
             store.push_back(stripSpaces(input.substr(start, i - start)));

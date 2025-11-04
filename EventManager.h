@@ -32,6 +32,8 @@ class EventManager {
     // adds a new user to users_ 
     void addUser(User* user);
 
+    User* createUser(int id);
+
     // call event factory and prompt user to enter event details 
     // adds event to available events
     void createEvent(User* organizer);

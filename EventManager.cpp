@@ -28,14 +28,16 @@ void EventManager::addUser(User* user) {
     users_[user->getId()] = user;
 }
 
-User* EventManager::createUser(int id) {
+User* EventManager::createUser() {
+    int id = useUserId();
     std::string input;
     std::string name;
     std::string s_balance;
-    std::cout << "SELECT A USER TYPE:\n" << "1: ATTENDEE\n2:ORGANIZER" << std::endl;
+    std::cout << "SELECT A USER TYPE:\n" << "1: ATTENDEE\n2: ORGANIZER" << std::endl;
     std::cin >> input;
 
     std::cout << "ENTER YOUR NAME:" << std::endl;
+    std::cin.ignore(1, '\n');
     std::getline(std::cin, name);
     std::cout << "ENTER AMOUNT OF FUNDS TO OPEN ACCOUNT WITH (FORMAT XX.XX):" << std::endl;
     std::cin >> s_balance;
@@ -231,8 +233,10 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     }
 }
 
-void EventManager::printBalance(User* user) const {}
+void EventManager::printBalance(User* user) const {
+    std::cout << "BALANCE: " << user->getBalance() << std::endl;
+}
 
 void EventManager::sellTicket(User* user, int event_id) {}
 
-void EventManager::printUserHistory(int id) const {}
+void EventManager::printUserHistory(User* user ) const {}

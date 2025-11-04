@@ -55,6 +55,10 @@ class Event {
         std::string getEventName() const { return event_name_; }
         // ensure the Event has the requested amount of tickets available 
         bool hasTickets(int qty) const { return (available_tickets_ - qty) >= 0; }
+
+        void setAvailableTickets(int num_tickets) { available_tickets_ = num_tickets; }
+        
+        int getAvailableTickets() { return available_tickets_; }
         // used to modify the ticket status of the event
         void setTicketStatus(TicketStatus status) { ticket_status_ = status; }
         // returns the TicketStatus of the event

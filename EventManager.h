@@ -20,6 +20,8 @@ class EventManager {
     int user_id_;
     int event_id_;
 
+    double service_profit_;
+
   public:
     // get instance function will return the singular EventManager object or create it if not already exists. 
     static EventManager* get_instance(){
@@ -27,9 +29,14 @@ class EventManager {
         instance_ = new EventManager();
         instance_->event_id_ = 0;
         instance_->user_id_ = 0;
+        instance_->service_profit_ = 0;
       }
       return instance_;
     }
+
+    double getServiceProfit() { return service_profit_; }
+
+    void setServiceProfit(double profit) { service_profit_ = profit; }
 
     int useUserId();
 

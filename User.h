@@ -24,7 +24,7 @@ class User {
         std::string getName() const { return name_; }
         double getBalance() const { return balance_; }
         void setBalance(double new_balance) { balance_ = new_balance; }
-        std::vector<Event*> getHistory() const { return history_; }
+        std::vector<Event*>& getHistory() { return history_; }
         void setHistory(std::vector<Event*> history) { history_ = history; }
 };
 

@@ -2,11 +2,13 @@
 #define EVENT_H
 #include <string>
 #include <vector>
-#include "User.h"
+
 
 // Event.h initializes Event base class with derived subclasses 
 // derived classes build from the base Event class to create 
 // members that are specific to the Event type 
+
+class User;
 
 // Enums used to classify Event subtypes 
 enum EventCategory { Concert, Sport, Theater, Convention, Comedy };

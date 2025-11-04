@@ -2,10 +2,10 @@
 #define USER_H
 #include <string>
 #include <vector>
-#include "Event.h"
+#include <iostream>
 
-
-enum Role { Organizer, Attendee };
+class Event;
+enum class Role { Organizer, Attendee };
 
 class User {
     protected:

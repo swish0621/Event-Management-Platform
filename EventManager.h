@@ -17,14 +17,23 @@ class EventManager {
     std::unordered_map<int, Event*> available_events_;
     std::unordered_map<int, Event*> unavailable_events_;
 
+    int user_id_;
+    int event_id_;
+
   public:
     // get instance function will return the singular EventManager object or create it if not already exists. 
     static EventManager* get_instance(){
       if(instance_ == nullptr){
         instance_ = new EventManager();
+        instance_->event_id_ = 0;
+        instance_->user_id_ = 0;
       }
       return instance_;
     }
+
+    int useUserId();
+
+    int useEventId();
 
     // finds the user by the users id 
     User* getUser(int id) const;

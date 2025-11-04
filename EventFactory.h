@@ -1,8 +1,7 @@
 #ifndef EVENTFACTORY_H
 #define EVENTFACTORY_H
+#include "Event.h"
 #include <iostream>
-
-class Event;
 
 class EventFactory {
     private:

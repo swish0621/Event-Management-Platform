@@ -1,10 +1,10 @@
-Concert, WubFest, 125.00, 1000, "ATliens|No Mana|HVDES|Subtronics", Electronic, "2025|12|10|18|30"
-Concert, SummerThrash, 79.99, 250, "Whitechapel|The Acacia Strain|Orthodox|The Last Ten Seconds Of Life", Metal, "2026|06|25|20|00"
-Sport, Cowboys vs Broncos, 200.00, 15000, "2026|10|17|16|30", Cowboys, Broncos, Football
-Sport, Rangers vs Cardinals, 139.99, 10000, "2026|07|19|14|30", Rangers, Cardinals, Baseball
-Theater, The Phantom of the Opera, 84.99, 750, The Phantom of the Opera, John Smith, "Sarah Johnson|Mike Brown|James Davis|Ryan Harris", Musical, false, "2026|07|24|18|00"
-Theater, Annie, 99.99, 600, Annie, Martin Jones, "Robert Downey Jr|Chris Evans|Scarlett Johansson|Mark Ruffalo", Musical, false, "2026|05|22|19|00"
-Convention, TwitchCon, 174.99, 25000, Entertainment, 150, "Asmongold|MoistCr1TiKaL|IronMouse|PewDiePie", "NVIDIA|G Fuel|Corsair|SecretLabs", 3, "2026|04|09|10|00"
-Convention, ComicCon, 244.99, 20000, Entertainment, 500, "Robert Downey Jr|Chris Evans|Scarlett Johansson|Tom Holland", "Marvel|DC|Funko|T Mobile", 4, "2026|07|21|09|00"
-Comedy, Joe Rogan Live, 99.99, 5000, Joe Rogan, true, "UFC|Tech|Politics", "2026|03|14|20|00"
-Comedy, Dave Chappelle: Unfiltered, 124.99, 6000, Dave Chappelle, true, "Race|Culture|Politics", "2026|05|22|21|00"
+Concert, WubFest, 125.00, 1000, ATliens|No Mana|HVDES|Subtronics, Electronic, 2025|12|10|18|30
+Concert, SummerThrash, 79.99, 250, Whitechapel|The Acacia Strain|Orthodox|The Last Ten Seconds Of Life, Metal, 2026|06|25|20|00
+Sport, Cowboys vs Broncos, 200.00, 15000, 2026|10|17|16|30, Cowboys, Broncos, Football
+Sport, Rangers vs Cardinals, 139.99, 10000, 2026|07|19|14|30, Rangers, Cardinals, Baseball
+Theater, The Phantom of the Opera, 84.99, 750, The Phantom of the Opera, John Smith, Sarah Johnson|Mike Brown|James Davis|Ryan Harris, Musical, false, 2026|07|24|18|00
+Theater, Annie, 99.99, 600, Annie, Martin Jones, Robert Downey Jr|Chris Evans|Scarlett Johansson|Mark Ruffalo, Musical, false, 2026|05|22|19|00
+Convention, TwitchCon, 174.99, 25000, Entertainment, 150, Asmongold|MoistCr1TiKaL|IronMouse|PewDiePie, NVIDIA|G Fuel|Corsair|SecretLabs, 3, 2026|04|09|10|00
+Convention, ComicCon, 244.99, 20000, Entertainment, 500, Robert Downey Jr|Chris Evans|Scarlett Johansson|Tom Holland, Marvel|DC|Funko|T Mobile, 4, 2026|07|21|09|00
+Comedy, Joe Rogan Live, 99.99, 5000, Joe Rogan, true, UFC|Tech|Politics, 2026|03|14|20|00
+Comedy, Dave Chappelle: Unfiltered, 124.99, 6000, Dave Chappelle, true, Race|Culture|Politics, 2026|05|22|21|00

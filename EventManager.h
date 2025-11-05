@@ -3,6 +3,7 @@
 #include <string> 
 #include <vector> 
 #include <unordered_map>
+#include <fstream>
 #include "Event.h"
 #include "User.h"
 
@@ -74,9 +75,8 @@ class EventManager {
 
     // increment user balance, increment available tickets, removes from user tickets
     void sellTicket(User* user, int event_id);
-
-    // displays user event history 
-    void printUserHistory(User* user) const;
+    
+    void loadFromCSV();
 
 };
 

@@ -14,7 +14,7 @@ class User;
 // Enums used to classify Event subtypes 
 enum EventCategory { Concert, Sport, Theater, Convention, Comedy };
 enum MusicGenre { Rock, Pop, Hiphop, Country, Jazz, Classical, Electronic, Metal, Indie };
-enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling };
+enum SportType { Football, Hockey, Soccer, Basketball, Golf, MMA, Wrestling, Baseball };
 enum TheaterGenre { Musical, Opera, Ballet, Play };
 enum TicketStatus { Available, Limited, SoldOut, ForResale };
 
@@ -129,7 +129,7 @@ class ConcertEvent : public Concert {
         void print(std::ostream& os) const override { 
             os <<id_ << ": " << event_name_ << "\n" << 
             "GENRE: " << genre_ << "\n" <<
-            "ARTISTS";
+            "ARTISTS: ";
             for(auto it : artists_){
                 os << it << ",";
             }

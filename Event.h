@@ -2,6 +2,7 @@
 #define EVENT_H
 #include <string>
 #include <vector>
+#include <iostream>
 
 
 // Event.h initializes Event base class with derived subclasses 
@@ -24,8 +25,12 @@ struct DateTime{
     int day;
     int hour;
     int minute;
-
 };
+
+inline std::ostream& operator<<(std::ostream& os,const DateTime& date){
+    os << "Date: " << date.year << "/" << date.month << "/" << date.day << " " << date.hour << ":" << date.minute << std::endl;
+    return os;
+}
 
 // abstract base class containing members that all Events share
 class Event {
@@ -68,6 +73,12 @@ class Event {
         // modifies Event Organizer
         void setOrganizer(User* user) { organizer_ = user; }
 
+        virtual void print(std::ostream& os) const = 0;
+
+        friend std::ostream& operator <<(std::ostream& os, const Event& event) {
+            event.print(os);
+            return os;
+        }
 };
 
 // abstract class derived from Event to add shared category of all Concert type Events
@@ -115,6 +126,15 @@ class ConcertEvent : public Concert {
         // modifies date and time info about the event
         void setDate(DateTime date) { event_date_ = date; }
 
+        void print(std::ostream& os) const override { 
+            os <<id_ << ": " << event_name_ << "\n" << 
+            "GENRE: " << genre_ << "\n" <<
+            "ARTISTS";
+            for(auto it : artists_){
+                os << it << ",";
+            }
+            os << "\nPRICE: " << price_ << "\n" << event_date_;
+        }
 };
 
 // abstract class derived from Event to add shared category of all Sport type Events
@@ -168,6 +188,11 @@ class SportEvent : public Sport {
         DateTime getDate() const { return event_date_; }
         // modifies date and time information for the specific sport event 
         void setDate(DateTime date) { event_date_ = date; } 
+
+        void print(std::ostream& os) const override {
+            os << id_ << ": " << event_name_ << "\n" << home_team_ << " vs " << away_team_;
+            os << "\nPRICE: " << price_ << "\n" << event_date_;
+        }
 
 };
 
@@ -230,6 +255,18 @@ class TheaterEvent : public Theater {
         DateTime getDate() const { return event_date_; }
         // modifies date and time information for the specific theater event 
         void setDate(DateTime date) { event_date_ = date; } 
+
+        void print(std::ostream& os) const override {
+            os << id_ << ": " << event_name_ << 
+            "\nTITLE: " << original_title_ <<
+            "\nDIRECTOR: " << director_ <<
+            "\nPERFORMERS: ";
+            for(auto it : performers_){
+                os << it << ",";
+            }
+            os << "\n PRICE: " << price_ <<
+            "\n" << event_date_;
+        }
 };
 
 // abstract class derived from Event to add shared category of all Convention type Events
@@ -297,6 +334,21 @@ class ConventionEvent : public Convention {
         DateTime getDate() const { return event_date_; }
         // modifies date and time information for the specific ConventionEvent 
         void setDate(DateTime date) { event_date_ = date; } 
+
+        void print(std::ostream& os) const override {
+            os << id_ << ": " << event_name_ <<
+            "\nINDUSTRY TYPE: " << industry_type_ << 
+            "\nEXHIBITORS: ";
+            for(auto it : exhibitors_){
+                os << it << ", ";
+            }
+            os << "\nSPONSORS: ";
+            for(auto it : sponsors_){
+                os << it << ", ";
+            }
+            os << "\nDURATION: " << num_days_ << 
+            "\nPrice: " << price_ << "\n" << event_date_;
+        }
 };
 
 // abstract class derived from Event to add shared category of all Comedy type Events
@@ -350,6 +402,16 @@ class ComedyEvent : public Comedy {
         DateTime getDate() const { return event_date_; }
         // modifies date and time information for the specific Comedyvent 
         void setDate(DateTime date) { event_date_ = date; } 
+
+        void print(std::ostream& os) const override {
+            os << id_ << ": " << event_name_ <<
+            "\nPERFORMER: " << performer_ <<
+            "\nTOPICS: ";
+            for(auto it : topics_){
+                os << it << ", ";
+            }
+            os << "\nPRICE: " << price_ << "\n" << event_date_;
+        }
 
 };
 

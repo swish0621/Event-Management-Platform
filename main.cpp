@@ -2,12 +2,14 @@
 
 int main() {
     EventManager* manager = EventManager::getInstance();
+    manager->loadFromCSV();
     std::cout <<    "WELCOME TO EVENTPASS\n" <<
                     "CREATE NEW USER OR LOGIN:\n" <<
                     "1: CREATE NEW USER\n" <<
                     "2: LOGIN" << std::endl;
     std::string login_input;
     std::cin >> login_input;
+    
     User* user;
     if(std::stoi(login_input) == 1){
         user = manager->createUser();
@@ -25,9 +27,9 @@ int main() {
                             "1: LIST AVAILABLE EVENTS\n" <<
                             "2: PURCHASE EVENT\n" <<
                             "3: SELL TICKET\n" <<
-                            "3: SHOW HISTORY\n" <<
-                            "4: CHECK BALANCE\n" <<
-                            "5: QUIT" << std::endl;
+                            "4: SHOW HISTORY\n" <<
+                            "5: CHECK BALANCE\n" <<
+                            "6: QUIT" << std::endl;
             std::string selection;
             std::cin >> selection;
             switch(std::stoi(selection)){
@@ -59,6 +61,8 @@ int main() {
                     }
                     break;
                 case 5:
+                    user->getBalance();
+                case 6:
                     quit = true;
                     break;
                 default:
@@ -72,6 +76,28 @@ int main() {
                             "2: SHOW HISTORY\n" <<
                             "3: CHECK BALANCE\n" <<
                             "4: QUIT" << std::endl;
+            std::string selection;
+            std::cin >> selection;
+            switch(std::stoi(selection)){
+                case 1:
+                    manager->createEvent(user);
+                    break;
+                case 2:
+                {
+                    for(auto it : user->getHistory()){
+                        std::cout << it;
+                    }
+                    break;
+                }
+                case 3:
+                    user->getBalance();
+                    break;
+                case 4:
+                    quit = true;
+                    break;
+                default:
+                    std::cout << "INVALID SELECITON" << std::endl;
+            }
         }
     }
     return 0;

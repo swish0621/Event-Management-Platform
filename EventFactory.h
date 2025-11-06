@@ -2,6 +2,7 @@
 #define EVENTFACTORY_H
 #include "Event.h"
 #include <iostream>
+#include "StringFunctions.h"
 
 class EventFactory {
     private:

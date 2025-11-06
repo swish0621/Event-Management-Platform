@@ -84,6 +84,8 @@ void EventManager::createEvent(User* organizer) {
 
     Event* event = factory->createEvent(useEventId(), category);
     event -> setOrganizer(organizer);
+    std::vector<Event*> history = organizer->getHistory();
+    history.push_back(event);
     available_events_[event->getId()] = event;
 }
 
@@ -94,7 +96,7 @@ Event* EventManager::getEvent(int id) const {
         return nullptr;
     }
     if(available != available_events_.end()){
-        return available->second;
+        return (available->second);
     }
     return unavailable->second;
 }
@@ -115,7 +117,11 @@ void EventManager::moveToUnavailable(int id) {
     }
 }
 
-void EventManager::printAvailableEvents() const {}
+void EventManager::printAvailableEvents() const {
+    for(auto it : available_events_){
+        std::cout << *it.second << std::endl;
+    }
+}
 
 void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     Event* event = getEvent(event_id);
@@ -205,7 +211,7 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
         if(can_purchase == 0){
             return;
         }
-        std::cout << "NOT ENOUGH FUNDS.\nYOU CAN PURCHASE" << can_purchase << "TICKETS\nPURCHASE?\n1: YES\n2: NO" << std::endl;
+        std::cout << "NOT ENOUGH FUNDS.\nYOU CAN PURCHASE " << can_purchase << " TICKETS.\nPURCHASE?\n1: YES\n2: NO" << std::endl;
         std::string input; 
         std::cin >> input;
         int choice = std::stoi(input);
@@ -237,6 +243,88 @@ void EventManager::printBalance(User* user) const {
     std::cout << "BALANCE: " << user->getBalance() << std::endl;
 }
 
-void EventManager::sellTicket(User* user, int event_id) {}
+void EventManager::sellTicket(User* user, int event_id) {
+    Event* event = nullptr;
+    std::vector<Event*>& history = user->getHistory();
+    for(auto it = history.begin(); it != history.end(); it++){
+        if((*it)->getId() == event_id){
+            event = *it;
+            history.erase(it);
+            break;
+        }
+    }
+    if(event == nullptr){
+        std::cout << "EVENT NOT FOUND... ";
+        return;
+    }
+    double price = event->getPrice() * .95;
+    user->setBalance(user->getBalance() + price);
+    if(event->getTicketStatus() == TicketStatus::SoldOut){
+        event->setTicketStatus(TicketStatus::ForResale);
+    }
+    double profit = event->getPrice() * .05;
+    setServiceProfit(getServiceProfit() + profit);
+    event->setAvailableTickets(event->getAvailableTickets() + 1);
 
-void EventManager::printUserHistory(User* user ) const {}
+    std::cout << "TICKET SOLD." << std::endl;
+}
+
+void EventManager::loadFromCSV() {
+    EventFactory* factory = EventFactory::getInstance();
+    std::ifstream events("Events.csv");
+    std::string e_line;
+    while(std::getline(events, e_line)){
+        if(e_line.empty()){
+            continue;
+        }
+        Event* event = factory->createEventFromCSV(useEventId(), e_line);
+        if(event){
+            available_events_[event->getId()] = event;
+        }
+    }
+    std::fstream users("Users.csv");
+    std::string u_line;
+    while(std::getline(users, u_line)){
+        if(u_line.empty()){
+            continue;
+        }
+        std::vector<std::string> variables = split(u_line, ',');
+        if(variables.at(1) == "Attendee"){
+            User* user = new Attendee(useUserId(), variables.at(1), std::stod(variables.at(2)));
+            if(variables.size() > 3){
+                std::vector<std::string> s_history = split(variables.at(3), '|');
+                std::vector<Event*> history;
+                for(auto it : s_history){
+                    if(it.empty()){
+                        continue;
+                    }
+                    Event* event = getEvent(std::stoi(it));
+                    if(event){
+                        history.push_back(event);
+                    }
+                }
+                user->setHistory(history);
+            }
+            users_[user->getId()] = user;
+        }
+        else {
+            User* user = new Organizer(useUserId(), variables.at(1), std::stod(variables.at(2)));
+            if(variables.size() > 3){
+                std::vector<std::string> s_history = split(variables.at(3), '|');
+                std::vector<Event*> history;
+                for(auto it : s_history){
+                    if(it.empty()){
+                        continue;
+                    }
+                    Event* event = getEvent(std::stoi(it));
+                    if(event){
+                        history.push_back(event);
+                        event->setOrganizer(user);
+                    }
+                }
+                user->setHistory(history);
+            }
+            users_[user->getId()] = user;
+        }
+    }
+}

@@ -1,5 +1,4 @@
 #include "EventFactory.h"
-#include "StringFunctions.h"
 #include <stdexcept>
 
 // FACTORY ASSUMES ALL VALID INPUT!!!
@@ -89,12 +88,14 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
 // prompt user to input ConcertEvent values 
 void EventFactory::getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date) {
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
+                std::cin.ignore(1, '\n');
                 std::cin >> s_price;
                 price = std::stod(s_price);
                 std::cout << std::endl;
@@ -118,10 +119,12 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
 
 void EventFactory::getSportEventValues(std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type) {
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -133,12 +136,15 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
                 std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 event_date = getDateTime();
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT AWAY TEAM:";
                 std::getline(std::cin, away_team);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT HOME TEAM:";
                 std::getline(std::cin, home_team);
                 std::cout << std::endl;
@@ -148,10 +154,12 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
 
 void EventFactory::getTheaterEventValues(std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
             std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date) {
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -163,14 +171,17 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
                 std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT ORIGINAL TITLE:";
                 std::getline(std::cin, original_title);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT DIRECTOR NAME:";
                 std::getline(std::cin, director);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF PERFORMERS:";
                 std::string performers_input; 
                 std::getline(std::cin, performers_input);
@@ -179,12 +190,14 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 
                 genre = getTheaterGenre();
 
+                std::cin.ignore(1, '\n');
                 std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
                 std::string bool_age_restricted;
                 std::cin >> bool_age_restricted;
                 age_restricted = std::stoi(bool_age_restricted) - 1;
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 date = getDateTime();
 
             }
@@ -192,10 +205,12 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 void EventFactory::getConventionEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
             std::vector<std::string>& sponsors, int& num_days, DateTime& date) {
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -207,43 +222,51 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT INDUSTRY TYPE:";
                 std::getline(std::cin, industry_type);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT NUMBER OF EXHIBITORS:";
                 std::string s_num_exhibitors;
                 std::cin >> s_num_exhibitors;
                 num_exhibitors = std::stoi(s_num_exhibitors);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF EXHIBITORS:";
                 std::string exhibitors_input; 
                 std::getline(std::cin, exhibitors_input);
                 exhibitors = split(exhibitors_input, ',');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF SPONSORS:";
                 std::string sponsors_input; 
                 std::getline(std::cin, sponsors_input);
                 sponsors = split(sponsors_input, ',');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT NUMBER OF THE CONVENTION LASTS:";
                 std::string s_num_days;
                 std::cin >> s_num_days;
                 num_days = std::stoi(s_num_days);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 date = getDateTime();
             }
 
 void EventFactory::getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date) {
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -255,22 +278,26 @@ void EventFactory::getComedyEventValues(std::string& event_name, double& price, 
                 std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT PERFORMER NAME:";
                 std::getline(std::cin, performer);
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
                 std::string bool_age_restricted;
                 std::cin >> bool_age_restricted;
                 age_restricted = std::stoi(bool_age_restricted) - 1;
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF TOPICS:";
                 std::string topics_input; 
                 std::getline(std::cin, topics_input);
                 topics = split(topics_input, ',');
                 std::cout << std::endl;
 
+                std::cin.ignore(1, '\n');
                 date = getDateTime();
 
             }
@@ -395,7 +422,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
     else if(variables.front() == "Convention"){ category = EventCategory::Convention; }
     else if(variables.front() == "Comedy"){ category = EventCategory::Comedy; }
     else {
-        throw std::invalid_argument("ERROR IN CSV PARSING...");
+        throw std::invalid_argument("ERROR IN CSV PARSING... EvenyCategory");
         return nullptr;
     }
     switch(category){
@@ -418,7 +445,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             else if(s_genre == "Metal") { genre = MusicGenre::Metal; }
             else if(s_genre == "Indie") { genre = MusicGenre::Indie; }
             else {
-                throw std::invalid_argument("ERROR IN CSV PARSING...");
+                throw std::invalid_argument("ERROR IN CSV PARSING... MusicGenre");
                 return nullptr;
             }
 
@@ -446,8 +473,9 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             else if(s_type == "Golf") { sport_type = SportType::Golf; }
             else if(s_type == "MMA") { sport_type = SportType::MMA; }
             else if(s_type == "Wrestling") { sport_type = SportType::Wrestling; }
+            else if(s_type == "Baseball") { sport_type = SportType::Baseball; }
             else {
-                throw std::invalid_argument("ERROR IN CSV PARSING...");
+                throw std::invalid_argument("ERROR IN CSV PARSING... SportType");
                 return nullptr;
             }
             return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);

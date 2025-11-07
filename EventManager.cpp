@@ -150,35 +150,8 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     double balance = user->getBalance();
     double price = event->getPrice();
     bool has_tickets = event->hasTickets(qty);
-    bool has_balance = balance >= price * qty;
+    bool has_balance = balance >= (price * qty);
     bool purchase = has_balance && has_tickets;
-    
-    // Event has enough tickets and user has enough money 
-        // set new user balance
-        // take fees for service
-        // set new organizer balance
-        // set new ticket amount and status 
-        // add event to user history 
-    if(purchase) {
-        user->setBalance(balance - (price * qty));
-        event->setAvailableTickets(event->getAvailableTickets() - qty);
-        if(event->getAvailableTickets() <= 25){
-            event->setTicketStatus(TicketStatus::Limited);
-            if(event->getAvailableTickets() == 0){
-                event->setTicketStatus(TicketStatus::SoldOut);
-                moveToUnavailable(event_id);
-            }
-        }
-        std::vector<Event*>& history = user->getHistory();
-        for(int i = 0; i < qty; i++){
-            history.push_back(event);
-        }
-        double service_profit = std::round(price * .05 * qty * 100) / 100;
-        User* organizer = event->getOrganizer();
-        organizer->setBalance(organizer->getBalance() + ((price * qty) - service_profit));
-        setServiceProfit(getServiceProfit() + service_profit);
-        return;
-    }
 
     // Event doesnt have enough tickets 
         // set qty to tickets available
@@ -224,8 +197,9 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
         // set new ticket amount and status 
         // add event to user history 
     if(!has_balance){
-        int can_purchase = std::floor(balance / price);
+        int can_purchase = balance / price;
         if(can_purchase == 0){
+            std::cout << "NOT ENOUGH FUNDS." << std::endl;
             return;
         }
         std::cout << "NOT ENOUGH FUNDS.\nYOU CAN PURCHASE " << can_purchase << " TICKETS.\nPURCHASE?\n1: YES\n2: NO" << std::endl;
@@ -252,6 +226,34 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
             organizer->setBalance(organizer->getBalance() + ((price * qty) - service_profit));
             setServiceProfit(getServiceProfit() + service_profit);
         }
+        return;
+    }
+
+    
+    // Event has enough tickets and user has enough money 
+        // set new user balance
+        // take fees for service
+        // set new organizer balance
+        // set new ticket amount and status 
+        // add event to user history 
+    if(purchase) {
+        user->setBalance(balance - (price * qty));
+        event->setAvailableTickets(event->getAvailableTickets() - qty);
+        if(event->getAvailableTickets() <= 25){
+            event->setTicketStatus(TicketStatus::Limited);
+            if(event->getAvailableTickets() == 0){
+                event->setTicketStatus(TicketStatus::SoldOut);
+                moveToUnavailable(event_id);
+            }
+        }
+        std::vector<Event*>& history = user->getHistory();
+        for(int i = 0; i < qty; i++){
+            history.push_back(event);
+        }
+        double service_profit = std::round(price * .05 * qty * 100) / 100;
+        User* organizer = event->getOrganizer();
+        organizer->setBalance(organizer->getBalance() + ((price * qty) - service_profit));
+        setServiceProfit(getServiceProfit() + service_profit);
         return;
     }
 }
@@ -346,4 +348,8 @@ void EventManager::loadFromCSV() {
             users_[user->getId()] = user;
         }
     }
+}
+
+void EventManager::addFunds(User* user, double funds) {
+    user->setBalance(user->getBalance() + funds);
 }

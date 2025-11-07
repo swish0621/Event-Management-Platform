@@ -35,48 +35,56 @@ class EventManager {
       return instance_;
     }
 
+    // Returns the profit values for the system
     double getServiceProfit() { return service_profit_; }
 
+    // Modifies the service_profit_ value for the system
     void setServiceProfit(double profit) { service_profit_ = profit; }
 
+    // Returns the current available id and increments the value 
     int useUserId();
 
+    // Returns the current available id and increments the value 
     int useEventId();
 
-    // finds the user by the users id 
+    // Finds the user by the users id 
     User* getUser(int id) const;
 
-    // adds a new user to users_ 
+    // Adds a new user to users_ 
     void addUser(User* user);
 
     User* createUser();
 
-    // call event factory and prompt user to enter event details 
-    // adds event to available events
+    // Call event factory and prompt user to enter event details 
+    // Adds event to available events
     void createEvent(User* organizer);
 
-    // returns an event: searches both available and unavailable
+    // Returns an event: searches both available and unavailable
     Event* getEvent(int id) const;
     
-    // moves an event from unavailable (for resale)
+    // Moves an event from unavailable (for resale)
     void moveToAvailable(int id);
 
-    // moves an event to unavailable (sold out)
+    // Moves an event to unavailable (sold out)
     void moveToUnavailable(int id);
 
-    // prints all available events 
+    // Prints all available events 
     void printAvailableEvents() const;
 
-    // adds event to user history, decrements available tickets and decrements user balance 
+    // Adds event to user history, decrements available tickets and decrements user balance 
     void purchaseEvent(User* user, int event_id, int qty);
 
-    // displays user balance 
+    // Displays user balance 
     void printBalance(User* user) const;
 
-    // increment user balance, increment available tickets, removes from user tickets
+    // Increment user balance, increment available tickets, removes from user tickets
     void sellTicket(User* user, int event_id);
     
+    // Creates users and events form the values stored in csv files
     void loadFromCSV();
+
+    // Adds funds to a users account 
+    void addFunds(User* user, double funds);
 
 };
 

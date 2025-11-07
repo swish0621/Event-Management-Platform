@@ -33,7 +33,8 @@ int main() {
                             "3: SELL TICKET\n" <<
                             "4: SHOW HISTORY\n" <<
                             "5: CHECK BALANCE\n" <<
-                            "6: QUIT" << std::endl;
+                            "6: ADD FUNDS\n" <<
+                            "7: QUIT" << std::endl;
             std::string selection;
             std::cin >> selection;
             switch(std::stoi(selection)){
@@ -68,6 +69,15 @@ int main() {
                     std::cout << "BALANCE: " << user->getBalance() << std::endl;
                     break;
                 case 6:
+                {
+                    std::string to_add;
+                    std::cout << "ENTER AMOUNT TO ADD (FORMAT 00.00)" << std::endl;
+                    std::cin >> to_add;
+                    manager->addFunds(user, std::stod(to_add));
+                    std::cout << "NEW BALANCE: " << user->getBalance() << std::endl;
+                    break;
+                }
+                case 7:
                     quit = true;
                     break;
                 default:

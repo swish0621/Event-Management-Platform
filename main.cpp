@@ -57,11 +57,12 @@ int main() {
                 }
                 case 4:
                     for(auto it : user->getHistory()){
-                        std::cout << it;
+                        std::cout << *it;
                     }
                     break;
                 case 5:
-                    user->getBalance();
+                    std::cout << "BALANCE: " << user->getBalance() << std::endl;
+                    break;
                 case 6:
                     quit = true;
                     break;
@@ -81,17 +82,18 @@ int main() {
             switch(std::stoi(selection)){
                 case 1:
                     manager->createEvent(user);
+
                     break;
                 case 2:
                 {
                     for(auto it : user->getHistory()){
-                        std::cout << it;
+                        std::cout << *it;
                     }
                     break;
                 }
                 case 3:
-                    user->getBalance();
-                    break;
+                    std::cout << "BALANCE: " << user->getBalance() << std::endl;
+                    break;;
                 case 4:
                     quit = true;
                     break;

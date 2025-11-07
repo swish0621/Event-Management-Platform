@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-
+// Nicholas Swisher
 // Event.h initializes Event base class with derived subclasses 
 // derived classes build from the base Event class to create 
 // members that are specific to the Event type 
@@ -81,8 +81,8 @@ class Event {
         }
 };
 
-// abstract class derived from Event to add shared category of all Concert type Events
-// acts as base class for all ConcertEvents 
+// Abstract class derived from Event to add shared category of all Concert type Events
+// Acts as base class for all ConcertEvents 
 class Concert : public Event {
     protected:
         EventCategory category_ = EventCategory::Concert;
@@ -98,8 +98,8 @@ class Concert : public Event {
         EventCategory getEventCategory() const override { return category_; }
 };
 
-// concrete class derived from Concert type events
-// initializes all specific event attributes and functions 
+// Concrete class derived from Concert type events
+// Initializes all specific event attributes and functions 
 class ConcertEvent : public Concert {
     protected:
         std::vector<std::string> artists_;
@@ -107,25 +107,26 @@ class ConcertEvent : public Concert {
         MusicGenre genre_;
     
     public:
-        // calls Concert constructor to initialize shared attributes
-        // assigns all event specific attributes 
+        // Calls Concert constructor to initialize shared attributes
+        // Assigns all event specific attributes 
         ConcertEvent(int id, std::string event_name, double price, int available_tickets, 
             std::vector<std::string> artists, MusicGenre genre, DateTime event_date) :
             Concert(id, event_name, price, available_tickets), artists_(artists), event_date_(event_date), genre_(genre) {}
         
-        // overrides base function to return genre of the ConcertEvent
+        // Overrides base function to return genre of the ConcertEvent
         MusicGenre getGenre() const override { return genre_; }
         
-        // returns list of stored artists at the event 
+        // Returns list of stored artists at the event 
         std::vector<std::string> getArtists() const { return artists_; }
-        // modifies artists at the event
+        // Modifies artists at the event
         void setArtists(std::vector<std::string> artists) { artists_ = artists; }
         
-        // returns date and time info about the event
+        // Returns date and time info about the event
         DateTime getDate() const { return event_date_; }
-        // modifies date and time info about the event
+        // Modifies date and time info about the event
         void setDate(DateTime date) { event_date_ = date; }
 
+        // Overridden function to print the Event 
         void print(std::ostream& os) const override { 
             os <<id_ << ": " << event_name_ << "\n" << 
             "GENRE: " << genre_ << "\n" <<
@@ -137,25 +138,25 @@ class ConcertEvent : public Concert {
         }
 };
 
-// abstract class derived from Event to add shared category of all Sport type Events
-// acts as base class for all SportEvents 
+// Abstract class derived from Event to add shared category of all Sport type Events
+// Acts as base class for all SportEvents 
 class Sport : public Event {
     protected:
         EventCategory category_ = EventCategory::Sport;
     
     public:
-        // calls base class constructor to assign shared attributes 
+        // Calls base class constructor to assign shared attributes 
         Sport(int id, std::string event_name, double price, int available_tickets) : 
             Event(id, event_name, price, available_tickets) {}
         
-        // virtual function to be implemented by all SportEvents to return the sport type 
+        // Virtual function to be implemented by all SportEvents to return the sport type 
         virtual SportType getSportType() const = 0;
-        // overridden function to return category shared by all Sport events
+        // Overridden function to return category shared by all Sport events
         EventCategory getEventCategory() const override { return category_; }
 };
 
-// concrete class derived from sport type events 
-// initializes all sport event specific members and functions
+// Concrete class derived from sport type events 
+// Initializes all sport event specific members and functions
 class SportEvent : public Sport {
     protected:
         std::string away_team_;
@@ -164,31 +165,32 @@ class SportEvent : public Sport {
         DateTime event_date_;
     
     public: 
-        // calls Sport class constructor for shared sport members 
-        // assigns sport event specific attributes 
+        // Calls Sport class constructor for shared sport members 
+        // Assigns sport event specific attributes 
         SportEvent(int id, std::string event_name, double price, int available_tickets,
             DateTime event_date, std::string away_team, std::string home_team, SportType sport_type) :
             Sport(id, event_name, price, available_tickets), away_team_(away_team),
             home_team_(home_team),sport_type_(sport_type), event_date_(event_date) {}
 
-        // overridden Sport function to return the sport type 
+        // Overridden Sport function to return the sport type 
         SportType getSportType() const override { return sport_type_; }
 
-        // returns away team 
+        // Returns away team 
         std::string getAwayTeam() const { return away_team_; }
-        // modifies away team 
+        // Modifies away team 
         void setAwayTeam(std::string away_team) { away_team_ = away_team; }
 
-        // returns home team 
+        // Returns home team 
         std::string getHomeTeam() const { return home_team_; }
-        // modifies home team 
+        // Modifies home team 
         void setHomeTeam(std::string home_team) { home_team_ = home_team; }
 
-        // returns date and time information for the specific sport event 
+        // Returns date and time information for the specific sport event 
         DateTime getDate() const { return event_date_; }
-        // modifies date and time information for the specific sport event 
+        // Modifies date and time information for the specific sport event 
         void setDate(DateTime date) { event_date_ = date; } 
 
+        // Overridden function to print the Event 
         void print(std::ostream& os) const override {
             os << id_ << ": " << event_name_ << "\n" << home_team_ << " vs " << away_team_;
             os << "\nPRICE: " << price_ << "\n" << event_date_;
@@ -196,26 +198,26 @@ class SportEvent : public Sport {
 
 };
 
-// abstract class derived from Event to add shared category of all Theater type Events
-// acts as base class for all TheaterEvents 
+// Abstract class derived from Event to add shared category of all Theater type Events
+// Acts as base class for all TheaterEvents 
 class Theater : public Event {
     protected: 
         EventCategory category_ = EventCategory::Theater;
 
     public:
-        // calls base class constructor to assign shared attributes 
+        // Calls base class constructor to assign shared attributes 
         Theater(int id, std::string event_name, double price, int available_tickets) : 
             Event(id, event_name, price, available_tickets) {}
 
-        // overridden function to return category shared by all Theater events
+        // Overridden function to return category shared by all Theater events
         EventCategory getEventCategory() const override { return category_; }
         // virtual function to be overridden by TheaterEvent to return theater genre
         virtual TheaterGenre getTheaterGenre() const = 0;
 
 };
 
-// concrete class derived from theater type events 
-// initializes all theater event specific members and functions
+// Concrete class derived from theater type events 
+// Initializes all theater event specific members and functions
 class TheaterEvent : public Theater {
     protected:
         std::string original_title_;
@@ -226,36 +228,37 @@ class TheaterEvent : public Theater {
         DateTime event_date_;
 
     public:
-        // calls Theater class constructor for shared theater members 
-        // assigns theater event specific attributes 
+        // Calls Theater class constructor for shared theater members 
+        // Assigns theater event specific attributes 
         TheaterEvent(int id, std::string event_name, double price, int available_tickets, std::string original_title, 
             std::string director, std::vector<std::string> performers, TheaterGenre genre, bool age_restricted, DateTime date) :
             Theater(id, event_name, price, available_tickets), original_title_(original_title), director_(director), 
             performers_(performers), genre_(genre), age_restricted_(age_restricted), event_date_(date) {}
 
-        // overridden function to return the theater event genre
+        // Overridden function to return the theater event genre
         TheaterGenre getTheaterGenre() const override { return genre_; }
 
-        // returns a list of perfomers for the theater event 
+        // Returns a list of perfomers for the theater event 
         std::vector<std::string> getPerformers() const { return performers_; }
-        // modifies the performers for the theater event 
+        // Modifies the performers for the theater event 
         void setPerformers(std::vector<std::string> performers) { performers_ = performers; }
 
-        // returns the actual title of the work being performed 
+        // Returns the actual title of the work being performed 
         std::string getOriginalTitle() const { return original_title_; }
-        // modifies the title of the work being performed 
+        // Modifies the title of the work being performed 
         void setOriginalTitle(std::string title) { original_title_ = title; }
 
-        // returns whether the theater event is age restricted 
+        // Returns whether the theater event is age restricted 
         bool isAgeRestricted() const { return age_restricted_; }
-        // modifies if the theater event is age restricted 
+        // Modifies if the theater event is age restricted 
         void setAgeRestricted(bool is_restricted) { age_restricted_ = is_restricted; }
 
-        // returns date and time information for the specific theater event 
+        // Returns date and time information for the specific theater event 
         DateTime getDate() const { return event_date_; }
-        // modifies date and time information for the specific theater event 
+        // Modifies date and time information for the specific theater event 
         void setDate(DateTime date) { event_date_ = date; } 
 
+        // Overridden function to print the Event 
         void print(std::ostream& os) const override {
             os << id_ << ": " << event_name_ << 
             "\nTITLE: " << original_title_ <<
@@ -269,25 +272,25 @@ class TheaterEvent : public Theater {
         }
 };
 
-// abstract class derived from Event to add shared category of all Convention type Events
-// acts as base class for all ConventionEvents 
+// Abstract class derived from Event to add shared category of all Convention type Events
+// Acts as base class for all ConventionEvents 
 class Convention : public Event {
     protected:
         EventCategory category_ = EventCategory::Convention;
 
     public:
-        // calls base class constructor to assign shared attributes 
+        // Calls base class constructor to assign shared attributes 
         Convention(int id, std::string event_name, double price, int available_tickets) :
             Event(id, event_name, price, available_tickets) {}
         
-        // overridden function to return category shared by all Convention events
+        // Overridden function to return category shared by all Convention events
         EventCategory getEventCategory() const override { return category_; }
-        // virtual function to be overriden by ConventionEvent to return the industry type of the convention
+        // Virtual function to be overriden by ConventionEvent to return the industry type of the convention
         virtual std::string getIndustryType() const = 0;
 };
 
-// concrete class derived from convention type events 
-// initializes all convention event specific members and functions
+// Concrete class derived from convention type events 
+// Initializes all convention event specific members and functions
 class ConventionEvent : public Convention {
     protected:
         std::string industry_type_;
@@ -298,8 +301,8 @@ class ConventionEvent : public Convention {
         DateTime event_date_;
 
     public:
-        // calls Convention class constructor for shared convention members 
-        // assigns convention event specific attributes 
+        // Calls Convention class constructor for shared convention members 
+        // Assigns convention event specific attributes 
         ConventionEvent(int id, std::string event_name, double price, int available_tickets, 
             std::string industry_type, int num_exhibitors, std::vector<std::string> exhibitors,
             std::vector<std::string> sponsors, int num_days, DateTime date) :
@@ -307,34 +310,35 @@ class ConventionEvent : public Convention {
             num_exhibitors_(num_exhibitors), exhibitors_(exhibitors), sponsors_(sponsors), 
             num_days_(num_days), event_date_(date) {}
 
-        // overriden function to return the industry type of the specific convention event
+        // Overriden function to return the industry type of the specific convention event
         std::string getIndustryType() const override { return industry_type_; }
 
-        // return the number of exhibitors at the convention event 
+        // Return the number of exhibitors at the convention event 
         int getNumExhibitors() const { return num_exhibitors_; }
-        // modifies the number of exhibitors at the convention event 
+        // Modifies the number of exhibitors at the convention event 
         void setNumExhibitors(int num_exhibitors) { num_exhibitors_ = num_exhibitors; }
 
-        // returns a list of the exhibitors at the specific convention event 
+        // Returns a list of the exhibitors at the specific convention event 
         std::vector<std::string> getExhibitors() const { return exhibitors_; }
-        // modifies the exhibitors at the specific convention event
+        // Modifies the exhibitors at the specific convention event
         void setExhibitors(std::vector<std::string> exhibitors) { exhibitors_ = exhibitors; }
 
-        // returns a list of the sponsors at the convention event
+        // Returns a list of the sponsors at the convention event
         std::vector<std::string> getSponsors() const { return sponsors_; }
-        // modifies the sponsors at the convention event 
+        // Modifies the sponsors at the convention event 
         void setSponsors(std::vector<std::string> sponsors) { sponsors_ = sponsors; }
 
-        //returns the number of days the event lasts 
+        // Returns the number of days the event lasts 
         int getNumDays() const { return num_days_; }
-        // modifies the number of days the event lasts 
+        // Modifies the number of days the event lasts 
         void setNumDays(int num_days) { num_days_ = num_days; }
 
-        // returns date and time information for the specific ConventionEvent 
+        // Returns date and time information for the specific ConventionEvent 
         DateTime getDate() const { return event_date_; }
-        // modifies date and time information for the specific ConventionEvent 
+        // Modifies date and time information for the specific ConventionEvent 
         void setDate(DateTime date) { event_date_ = date; } 
 
+        // Overridden function to print the Event 
         void print(std::ostream& os) const override {
             os << id_ << ": " << event_name_ <<
             "\nINDUSTRY TYPE: " << industry_type_ << 
@@ -351,25 +355,25 @@ class ConventionEvent : public Convention {
         }
 };
 
-// abstract class derived from Event to add shared category of all Comedy type Events
-// acts as base class for all ComedyEvents 
+// Abstract class derived from Event to add shared category of all Comedy type Events
+// Acts as base class for all ComedyEvents 
 class Comedy : public Event {
     protected:
         EventCategory category_ = EventCategory::Comedy;
     
     public:
-        // calls base class constructor to assign shared attributes 
+        // Calls base class constructor to assign shared attributes 
         Comedy(int id, std::string event_name, double price, int available_tickets) : 
             Event(id, event_name, price, available_tickets) {}
 
-        // overridden function to return category shared by all Comedy events
+        // Overridden function to return category shared by all Comedy events
         EventCategory getEventCategory() const override { return category_; }
-        // virtual function to be overridden by ComedyEvent to return the specific ComedyEvent performer
+        // Virtual function to be overridden by ComedyEvent to return the specific ComedyEvent performer
         virtual std::string getPerformer() const = 0;
 };
 
-// concrete class derived from comedy type events 
-// initializes all comedy event specific members and functions
+// Concrete class derived from comedy type events 
+// Initializes all comedy event specific members and functions
 class ComedyEvent : public Comedy {
     protected:
         std::string performer_;
@@ -378,31 +382,32 @@ class ComedyEvent : public Comedy {
         DateTime event_date_;
     
     public:
-        // calls Comedy class constructor for shared comedy members 
-        // assigns comedy event specific attributes 
+        // Calls Comedy class constructor for shared comedy members 
+        // Assigns comedy event specific attributes 
         ComedyEvent(int id, std::string event_name, double price, int available_tickets, 
             std::string performer, bool age_restricted, std::vector<std::string> topics, DateTime date) :
             Comedy(id, event_name, price, available_tickets), performer_(performer), 
             age_restricted_(age_restricted), topics_(topics), event_date_(date) {}
 
-        // overridden function to return the ComedyEvent specific performer
+        // Overridden function to return the ComedyEvent specific performer
         std::string getPerformer() const override { return performer_; }
 
-        // returns if the event is age restricted 
+        // Returns if the event is age restricted 
         bool getAgeRestricted() const { return age_restricted_; }
-        // modifies if the event is age restricted
+        // Modifies if the event is age restricted
         void setAgeRestricted(bool age_restricted) {age_restricted_ = age_restricted; }
 
-        // returns a list of the topics covered by the performer
+        // Returns a list of the topics covered by the performer
         std::vector<std::string> getTopics() const { return topics_; }
-        // modifies the topics covered by the performer
+        // Modifies the topics covered by the performer
         void setTopics(std::vector<std::string> topics) { topics_ = topics; }
 
-        // returns date and time information for the specific ComedyEvent 
+        // Returns date and time information for the specific ComedyEvent 
         DateTime getDate() const { return event_date_; }
-        // modifies date and time information for the specific Comedyvent 
+        // Modifies date and time information for the specific Comedyvent 
         void setDate(DateTime date) { event_date_ = date; } 
 
+        // Overridden function to print the Event 
         void print(std::ostream& os) const override {
             os << id_ << ": " << event_name_ <<
             "\nPERFORMER: " << performer_ <<

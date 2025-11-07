@@ -1,6 +1,9 @@
 #include "StringFunctions.h"
 
+// Nicholas Swisher 
+// Purpose: define string parsing functions to read user input and from csv 
 
+// Remove leading and trailing spaces if they exist 
 std::string stripSpaces(std::string input){
     if(input.empty()){
         return input;
@@ -15,6 +18,7 @@ std::string stripSpaces(std::string input){
     return input.substr(start, end - start);
 }
 
+// Splits a string on the input delimiter
 std::vector<std::string> split(std::string input, char delimiter){
     std::vector<std::string> store;
     int i = 0;

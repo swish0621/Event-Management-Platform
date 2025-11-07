@@ -85,7 +85,7 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
     }
 }
 
-// prompt user to input ConcertEvent values 
+// Prompt user to input ConcertEvent values and assign required members
 void EventFactory::getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date) {
                 std::cin.ignore(1, '\n');
@@ -116,7 +116,7 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
                 event_date = getDateTime();
             }
 
-
+// Prompt user to input SportEvent values and assign required members
 void EventFactory::getSportEventValues(std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type) {
                 std::cin.ignore(1, '\n');
@@ -152,6 +152,7 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
                 sport_type = getSportType();
             }
 
+// Prompt user to input TheaterEvent values and assign required members
 void EventFactory::getTheaterEventValues(std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
             std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date) {
                 std::cin.ignore(1, '\n');
@@ -202,6 +203,7 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 
             }
 
+// Prompt user to input ConventionEvent values and assign required members
 void EventFactory::getConventionEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
             std::vector<std::string>& sponsors, int& num_days, DateTime& date) {
@@ -259,6 +261,7 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
                 date = getDateTime();
             }
 
+// Prompt user to input ComedyEvent values and assign required members
 void EventFactory::getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date) {
                 std::cin.ignore(1, '\n');
@@ -301,7 +304,8 @@ void EventFactory::getComedyEventValues(std::string& event_name, double& price, 
                 date = getDateTime();
 
             }
-// prompt user selection to return the correct music genre
+
+// Prompt user selection to return the correct MusicGenre enum
 MusicGenre EventFactory::getGenre() {
 
     std::cout << "SELECT MUSIC GENRE:" << std::endl << "1: ROCK" << std::endl << "2: POP" << std::endl 
@@ -335,6 +339,7 @@ MusicGenre EventFactory::getGenre() {
     }
 }
 
+// Prompt user selection to a create a DateTime object 
 DateTime EventFactory::getDateTime() {
     std::string s_year;
     std::cout << "ENTER YEAR OF EVENT, FORMAT(2025):" << std::endl;
@@ -364,6 +369,7 @@ DateTime EventFactory::getDateTime() {
     return date;
 }
 
+// Prompt user selection to return the correct SportType enum
 SportType EventFactory::getSportType() {
     std::cout << "SELECT SPORT TYPE:" << std::endl << "1: FOOTBALL" << std::endl << "2: HOCKEY" << std::endl 
         << "3: SOCCER" << std::endl << "4: BASKETBALL" << std::endl << "5: GOLF" << std::endl << "6: MMA"
@@ -391,7 +397,8 @@ SportType EventFactory::getSportType() {
             throw std::invalid_argument("Invalid Type. Aborting...");
     }
 }
-//Musical, Opera, Ballet, Play
+
+// Prompt user selection to return the correct TheaterGenre enum
 TheaterGenre EventFactory::getTheaterGenre() {
     std::cout << "SELECT THEATER GENRE:" << std::endl << "1: MUSICAL" << std::endl << "2: OPERA" << std::endl 
         << "3: BALLET" << std::endl << "4: PLAY" << std::endl;
@@ -412,9 +419,11 @@ TheaterGenre EventFactory::getTheaterGenre() {
             throw std::invalid_argument("Invalid Genre. Aborting...");
     }
 }
-// read all necessary data from a csv file and call the correct helper based on the EventCategory
+// Read all necessary data from a csv file and call the correct helper based on the EventCategory
 Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
     std::vector<std::string> variables = split(line_items, ',');
+
+    // Read first item in csv and determine specific event type
     EventCategory category;
     if(variables.front() == "Concert"){ category = EventCategory::Concert; }
     else if(variables.front() == "Sport"){ category = EventCategory::Sport; }
@@ -426,6 +435,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
         return nullptr;
     }
     switch(category){
+        // Concert Type Event 
         case EventCategory::Concert:
         {
             std::string event_name = variables.at(1);
@@ -454,6 +464,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             
             return new ConcertEvent(id, event_name, price, available_tickets, artists, genre, event_date);
         }
+        // Sport Type Event 
         case EventCategory::Sport:
         {
             std::string event_name = variables.at(1);
@@ -480,6 +491,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
             }
             return new SportEvent(id, event_name, price, available_tickets, event_date, away_team, home_team, sport_type);
         }
+        // Theater Type Event 
         case EventCategory::Theater:
         {
             std::string event_name = variables.at(1);
@@ -507,6 +519,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
 
             return new TheaterEvent(id, event_name, price, available_tickets, title, director, performers, genre, age_restricted, event_date);
         }
+        // Convention Type Event 
         case EventCategory::Convention:
         {
             std::string event_name = variables.at(1);
@@ -523,6 +536,7 @@ Event* EventFactory::createEventFromCSV(int id, std::string line_items) {
 
             return new ConventionEvent(id, event_name, price,available_tickets, industry_type, num_exhibitors, exhibitors, sponsors, num_days, event_date);
         }
+        // Comedy Type Event 
         case EventCategory::Comedy:
         {
             std::string event_name = variables.at(1);

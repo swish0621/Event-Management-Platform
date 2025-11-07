@@ -1,4 +1,5 @@
 # Event Management Simulator
+![Build](https://github.com/swish0621/Event-Management-Simulator/actions/workflows/c-cpp.yml/badge.svg)
 
 A simulation of an event and ticket management system built with C++ and key design patterns to showcase OOP architecture.  
 This project models a Ticketmaster-style system where users can act as attendees or organizers, create events, buy or sell tickets, and track balances handled through a CLI menu interface.

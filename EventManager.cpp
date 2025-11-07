@@ -65,7 +65,6 @@ User* EventManager::createUser() {
 
 // User prompting to create a new event and store it in the available events storage
 void EventManager::createEvent(User* organizer) {
-    EventFactory* factory = EventFactory::getInstance();
 
     EventCategory category;
     std::string input;
@@ -92,10 +91,11 @@ void EventManager::createEvent(User* organizer) {
             throw std::invalid_argument("Invalid Category");
     }
 
-    Event* event = factory->createEvent(useEventId(), category);
+    Event* event = EventFactory::createEvent(useEventId(), category);
     event -> setOrganizer(organizer);
-    std::vector<Event*> history = organizer->getHistory();
+    std::vector<Event*>& history = organizer->getHistory();
     history.push_back(event);
+    organizer->setHistory(history);
     available_events_[event->getId()] = event;
 }
 
@@ -291,14 +291,13 @@ void EventManager::sellTicket(User* user, int event_id) {
 }
 
 void EventManager::loadFromCSV() {
-    EventFactory* factory = EventFactory::getInstance();
     std::ifstream events("Events.csv");
     std::string e_line;
     while(std::getline(events, e_line)){
         if(e_line.empty()){
             continue;
         }
-        Event* event = factory->createEventFromCSV(useEventId(), e_line);
+        Event* event = EventFactory::createEventFromCSV(useEventId(), e_line);
         if(event){
             available_events_[event->getId()] = event;
         }

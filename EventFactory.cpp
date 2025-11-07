@@ -5,7 +5,6 @@
 // Define member functions in EventFactory.h
 // Functions handle the creation of new Events
 
-EventFactory* EventFactory::instance_ = nullptr;
 
 // intitialize event Specific values 
 // pass by reference to asscoiated user prompt function to define values

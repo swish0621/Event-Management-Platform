@@ -1,5 +1,9 @@
 #include "EventManager.h"
 
+// Nicholas Swisher
+// Main function:
+// Purpose: create an instance of the EventManager and control the program flow based on user input
+
 int main() {
     EventManager* manager = EventManager::getInstance();
     manager->loadFromCSV();

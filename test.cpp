@@ -22,7 +22,7 @@ TEST_CASE("TEST_USER_ATTENDEE_CREATION", "[USER-ATTENDEE]"){
 
 }
 
-TEST_CASE("TEST_USER_ORGANIZER_CREATION", "[USER-ATTENDEE]"){
+TEST_CASE("TEST_USER_ORGANIZER_CREATION", "[USER-ORGANIZER]"){
     EventManager* manager = EventManager::getInstance();
     std::istringstream input("2\nJoe Jones\n100\n");
     std::streambuf* old = std::cin.rdbuf(input.rdbuf());

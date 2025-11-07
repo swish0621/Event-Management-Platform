@@ -68,4 +68,17 @@ TEST_CASE("TEST_EVENT_CREATION", "[EVENT]"){
         REQUIRE(event->getAvailableTickets() == 100);
         REQUIRE(event->getEventCategory() == EventCategory::Sport);
     }
+    SECTION("THEATER"){
+        std::istringstream input1("3\nTheater\n99.99\n100\nTitle\nDirector\nJames,John,Josh\n1\n1\n2025\n12\n05\n12\n30\n");
+        std::streambuf* old1 = std::cin.rdbuf(input1.rdbuf());
+        manager->createEvent(user);
+        std::cin.rdbuf(old1);
+
+        Event* event = manager->getEvent(2);
+        REQUIRE(event->getEventName() == "Theater");
+        REQUIRE(event->getOrganizer() == user);
+        REQUIRE(event->getPrice() == 99.99);
+        REQUIRE(event->getAvailableTickets() == 100);
+        REQUIRE(event->getEventCategory() == EventCategory::Theater);
+    }
 }

@@ -1,7 +1,9 @@
 #include "EventFactory.h"
 #include <stdexcept>
 
-// FACTORY ASSUMES ALL VALID INPUT!!!
+// Nicholas Swisher
+// Define member functions in EventFactory.h
+// Functions handle the creation of new Events
 
 EventFactory* EventFactory::instance_ = nullptr;
 

@@ -19,6 +19,7 @@ TEST_CASE("TEST_USER_ATTENDEE_CREATION", "[USER-ATTENDEE]"){
     REQUIRE(user->getBalance() == 100);
     REQUIRE(user->getName() == "Joe Jones");
     REQUIRE(user->getRole() == Role::Attendee);
+
 }
 
 TEST_CASE("TEST_USER_ORGANIZER_CREATION", "[USER-ATTENDEE]"){
@@ -27,11 +28,11 @@ TEST_CASE("TEST_USER_ORGANIZER_CREATION", "[USER-ATTENDEE]"){
     std::streambuf* old = std::cin.rdbuf(input.rdbuf());
     manager->createUser();
     std::cin.rdbuf(old);
-    User* user = manager->getUser(0);
-    REQUIRE(user->getId() == 0);
+    User* user = manager->getUser(1);
+    REQUIRE(user->getId() == 1);
     REQUIRE(user->getBalance() == 100);
     REQUIRE(user->getName() == "Joe Jones");
-    REQUIRE(user->getRole() == Role::Attendee);
+    REQUIRE(user->getRole() == Role::Organizer);
 }
 
 TEST_CASE("TEST_EVENT_CREATION", "[EVENT]"){
@@ -80,5 +81,18 @@ TEST_CASE("TEST_EVENT_CREATION", "[EVENT]"){
         REQUIRE(event->getPrice() == 99.99);
         REQUIRE(event->getAvailableTickets() == 100);
         REQUIRE(event->getEventCategory() == EventCategory::Theater);
+    }
+    SECTION("CONVENTION"){
+        std::istringstream input1("4\nConvention\n99.99\n100\nEntertainment\n200\nJames,John,Josh\nMary,Mason,Mike\n3\n2025\n12\n05\n12\n30\n");
+        std::streambuf* old1 = std::cin.rdbuf(input1.rdbuf());
+        manager->createEvent(user);
+        std::cin.rdbuf(old1);
+
+        Event* event = manager->getEvent(3);
+        REQUIRE(event->getEventName() == "Convention");
+        REQUIRE(event->getOrganizer() == user);
+        REQUIRE(event->getPrice() == 99.99);
+        REQUIRE(event->getAvailableTickets() == 100);
+        REQUIRE(event->getEventCategory() == EventCategory::Convention);
     }
 }

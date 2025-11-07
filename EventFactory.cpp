@@ -1,5 +1,6 @@
 #include "EventFactory.h"
 #include <stdexcept>
+#include <limits>
 
 // Nicholas Swisher
 // Define member functions in EventFactory.h
@@ -89,21 +90,20 @@ Event* EventFactory::createEvent(int id, EventCategory category) {
 // Prompt user to input ConcertEvent values and assign required members
 void EventFactory::getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date) {
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
-                std::cin.ignore(1, '\n');
                 std::cin >> s_price;
                 price = std::stod(s_price);
                 std::cout << std::endl;
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
                 std::cin >> available_tickets;
-                std::cin.ignore(1, '\n');
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << std::endl;
 
                 std::cout << "INPUT COMMA SEPARATED LIST OF ARTISTS:";
@@ -120,12 +120,11 @@ void EventFactory::getConcertEventValues(std::string& event_name, double& price,
 // Prompt user to input SportEvent values and assign required members
 void EventFactory::getSportEventValues(std::string& event_name, double& price, int& available_tickets,
             DateTime& event_date, std::string& away_team, std::string& home_team, SportType& sport_type) {
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -134,18 +133,15 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
                 std::cin >> available_tickets;
-                std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 event_date = getDateTime();
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT AWAY TEAM:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, away_team);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT HOME TEAM:";
                 std::getline(std::cin, home_team);
                 std::cout << std::endl;
@@ -374,7 +370,7 @@ DateTime EventFactory::getDateTime() {
 SportType EventFactory::getSportType() {
     std::cout << "SELECT SPORT TYPE:" << std::endl << "1: FOOTBALL" << std::endl << "2: HOCKEY" << std::endl 
         << "3: SOCCER" << std::endl << "4: BASKETBALL" << std::endl << "5: GOLF" << std::endl << "6: MMA"
-        << std::endl << "7: WESTLING" << std::endl;
+        << std::endl << "7: WESTLING" << "8: BASEBALL" << std::endl;
     
     std::string input;
     std::cin >> input;
@@ -394,6 +390,8 @@ SportType EventFactory::getSportType() {
             return SportType::MMA;
         case 7:
             return SportType::Wrestling;
+        case 8: 
+            return SportType::Baseball;
         default:
             throw std::invalid_argument("Invalid Type. Aborting...");
     }

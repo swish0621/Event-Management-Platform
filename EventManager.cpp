@@ -2,20 +2,27 @@
 #include "EventFactory.h"
 #include <cmath>
 
+// Nicholas Swisher
+// Purpose: define the member functions of the EventManager
+
+// Initialize instance_ to a null pointer
 EventManager* EventManager::instance_ = nullptr;
 
+// Supply the next user id available and increment to the next available id
 int EventManager::useUserId() {
     int id = user_id_;
     user_id_++;
     return id;
 }
 
+// Supply the next event id available and increment to the next available id
 int EventManager::useEventId() {
     int id = event_id_;
     event_id_++;
     return id;
 }
 
+// Return a User pointer if the id exists
 User* EventManager::getUser(int id) const {
     auto user = users_.find(id);
     if(user != users_.end()){
@@ -24,10 +31,12 @@ User* EventManager::getUser(int id) const {
     return nullptr;
 }
 
+// Add a user to the user storage 
 void EventManager::addUser(User* user) {
     users_[user->getId()] = user;
 }
 
+// User prompting to create a new user and add the new user to the user storage
 User* EventManager::createUser() {
     int id = useUserId();
     std::string input;
@@ -54,6 +63,7 @@ User* EventManager::createUser() {
     return user; 
 }
 
+// User prompting to create a new event and store it in the available events storage
 void EventManager::createEvent(User* organizer) {
     EventFactory* factory = EventFactory::getInstance();
 
@@ -89,6 +99,7 @@ void EventManager::createEvent(User* organizer) {
     available_events_[event->getId()] = event;
 }
 
+// Return an event pointer if the id exists
 Event* EventManager::getEvent(int id) const {
     auto available = available_events_.find(id);
     auto unavailable = unavailable_events_.find(id);
@@ -101,6 +112,7 @@ Event* EventManager::getEvent(int id) const {
     return unavailable->second;
 }
 
+// Move an event from unavailable storage to available storage
 void EventManager::moveToAvailable(int id) {
     auto event = unavailable_events_.find(id);
     if(event != unavailable_events_.end()){
@@ -109,6 +121,7 @@ void EventManager::moveToAvailable(int id) {
     }
 }
 
+// Move an event from available storage to unavailable storage
 void EventManager::moveToUnavailable(int id) {
     auto event = available_events_.find(id);
     if(event != available_events_.end()){
@@ -117,12 +130,16 @@ void EventManager::moveToUnavailable(int id) {
     }
 }
 
+// Prints all events stored in available event storage
 void EventManager::printAvailableEvents() const {
     for(auto it : available_events_){
         std::cout << *it.second << std::endl;
     }
 }
 
+// Handles all side effects of purchasing an event 
+// Handles if the user doesnt have the available funds
+// Handles if the event doesnt have the requested tickets
 void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     Event* event = getEvent(event_id);
     // ensure event was found 
@@ -164,7 +181,7 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     }
 
     // Event doesnt have enough tickets 
-    // set qty to tickets available
+        // set qty to tickets available
         // set new user balance
         // take fees for service
         // set new organizer balance
@@ -200,7 +217,7 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     }
 
     // User doesnt have enough money 
-    // set qty to max tickets purchasable
+        // set qty to max tickets purchasable
         // set new user balance
         // take fees for service
         // set new organizer balance
@@ -239,10 +256,12 @@ void EventManager::purchaseEvent(User* user, int event_id, int qty) {
     }
 }
 
+// Prints the users balance 
 void EventManager::printBalance(User* user) const {
     std::cout << "BALANCE: " << user->getBalance() << std::endl;
 }
 
+// Handles side effects of selling a ticket to an event
 void EventManager::sellTicket(User* user, int event_id) {
     Event* event = nullptr;
     std::vector<Event*>& history = user->getHistory();

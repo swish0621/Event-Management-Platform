@@ -152,12 +152,11 @@ void EventFactory::getSportEventValues(std::string& event_name, double& price, i
 // Prompt user to input TheaterEvent values and assign required members
 void EventFactory::getTheaterEventValues(std::string& event_name, double& price, int& available_tickets, std::string& original_title, 
             std::string& director, std::vector<std::string>& performers, TheaterGenre& genre, bool& age_restricted, DateTime& date) {
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -166,20 +165,17 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
                 std::cin >> available_tickets;
-                std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT ORIGINAL TITLE:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, original_title);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT DIRECTOR NAME:";
                 std::getline(std::cin, director);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF PERFORMERS:";
                 std::string performers_input; 
                 std::getline(std::cin, performers_input);
@@ -188,14 +184,13 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 
                 genre = getTheaterGenre();
 
-                std::cin.ignore(1, '\n');
+
                 std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
                 std::string bool_age_restricted;
                 std::cin >> bool_age_restricted;
                 age_restricted = std::stoi(bool_age_restricted) - 1;
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 date = getDateTime();
 
             }
@@ -204,12 +199,11 @@ void EventFactory::getTheaterEventValues(std::string& event_name, double& price,
 void EventFactory::getConventionEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& industry_type, int& num_exhibitors, std::vector<std::string>& exhibitors,
             std::vector<std::string>& sponsors, int& num_days, DateTime& date) {
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -218,55 +212,49 @@ void EventFactory::getConventionEventValues(std::string& event_name, double& pri
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
                 std::cin >> available_tickets;
-                std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT INDUSTRY TYPE:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, industry_type);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT NUMBER OF EXHIBITORS:";
                 std::string s_num_exhibitors;
                 std::cin >> s_num_exhibitors;
                 num_exhibitors = std::stoi(s_num_exhibitors);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF EXHIBITORS:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::string exhibitors_input; 
                 std::getline(std::cin, exhibitors_input);
                 exhibitors = split(exhibitors_input, ',');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF SPONSORS:";
                 std::string sponsors_input; 
                 std::getline(std::cin, sponsors_input);
                 sponsors = split(sponsors_input, ',');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT NUMBER OF THE CONVENTION LASTS:";
                 std::string s_num_days;
                 std::cin >> s_num_days;
                 num_days = std::stoi(s_num_days);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 date = getDateTime();
             }
 
 // Prompt user to input ComedyEvent values and assign required members
 void EventFactory::getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date) {
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, event_name);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT EVENT PRICE:";
                 std::string s_price;
                 std::cin >> s_price;
@@ -275,29 +263,26 @@ void EventFactory::getComedyEventValues(std::string& event_name, double& price, 
 
                 std::cout << "INPUT NUMBER OF TICKETS AVAILABLE:";
                 std::cin >> available_tickets;
-                std::cin.ignore(1, '\n');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT PERFORMER NAME:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, performer);
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "IS THE EVENT AGE RESTRICTED?" << std::endl << "1: NO" << std::endl << "2: YES" << std::endl;
                 std::string bool_age_restricted;
                 std::cin >> bool_age_restricted;
                 age_restricted = std::stoi(bool_age_restricted) - 1;
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 std::cout << "INPUT COMMA SEPARATED LIST OF TOPICS:";
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::string topics_input; 
                 std::getline(std::cin, topics_input);
                 topics = split(topics_input, ',');
                 std::cout << std::endl;
 
-                std::cin.ignore(1, '\n');
                 date = getDateTime();
 
             }

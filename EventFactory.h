@@ -11,6 +11,7 @@ class EventFactory {
         EventFactory& operator=(const EventFactory&) = delete;
         EventFactory(const EventFactory&) = delete;
 
+        // Helper functions that direct user prompting to fill correct event values
         void getConcertEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::vector<std::string>& artists, MusicGenre& genre, DateTime& event_date);
 
@@ -27,6 +28,7 @@ class EventFactory {
         void getComedyEventValues(std::string& event_name, double& price, int& available_tickets, 
             std::string& performer, bool& age_restricted, std::vector<std::string>& topics, DateTime& date);
 
+        // Helper functions to return enum types from user input 
         MusicGenre getGenre();
 
         DateTime getDateTime();
@@ -44,11 +46,11 @@ class EventFactory {
             return instance_;
         }
 
-        // will prompt user to input inprmation about the event to identify/call the correct creation function 
-        // handle required side effects of event creation, adding to EventManager storage, adding to Organizer history
+        // Prompt user to input inprmation about the event to identify/call the correct creation function 
+        // Handle required side effects of event creation, adding to EventManager storage, adding to Organizer history
         Event* createEvent(int id, EventCategory category);
 
-        // to be used when loading Event data from csv, accepts one Event at a time 
+        // To be used when loading Event data from csv, accepts one Event at a time 
         Event* createEventFromCSV(int id, std::string line_items);
 };
 

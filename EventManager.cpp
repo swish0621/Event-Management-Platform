@@ -309,7 +309,7 @@ void EventManager::loadFromCSV() {
             continue;
         }
         std::vector<std::string> variables = split(u_line, ',');
-        if(variables.at(1) == "Attendee"){
+        if(variables.at(0) == "Attendee"){
             User* user = new Attendee(useUserId(), variables.at(1), std::stod(variables.at(2)));
             if(variables.size() > 3){
                 std::vector<std::string> s_history = split(variables.at(3), '|');

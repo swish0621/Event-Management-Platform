@@ -15,7 +15,7 @@ It’s built to demonstrate real software structure using:
 - **Factory pattern** for dynamic event creation  
 - **Singleton pattern** for centralized event management  
 - **Encapsulation and abstraction** to isolate logic cleanly  
-- **CSV-Parsing and loading 
+- CSV-Parsing and loading 
 - **Catch2 testing** for automated validation of key features  
 
 Everything ties together through an `EventManager` singleton that controls program flow, tracks users, manages events, and handles all financial logic (balances, profits, and ticket status updates).

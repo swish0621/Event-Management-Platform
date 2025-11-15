@@ -78,3 +78,80 @@ To clean build files:
 make clean
 ```
 
+# Future Plans
+
+This project is currently an MVP implementation of an event management backend.  
+The following roadmap outlines planned expansions to evolve the system into a fully functional, production-ready full-stack application.
+
+---
+
+## 1. Architecture Expansion
+- Add support for user accounts with usernames, password hashes, emails, and roles/permissions.
+- Introduce additional metadata fields for events and users as needed for expanded functionality.
+
+---
+
+## 2. Input Validation & Security
+- Remove CLI-driven input and replace it with structured validation rules.
+- Add robust checks for all user and event fields (length limits, allowed characters, date validation, ticket quantity rules, etc.).
+- Implement secure password hashing and safe authentication handling.
+
+---
+
+## 3. Database Integration
+- Migrate from CSV storage to a relational database (SQLite or PostgreSQL).
+- Create a normalized schema for Users, Events, Tickets, and Transactions.
+- Implement complete CRUD operations for all entities.
+- Add indexing for performance on common queries.
+
+---
+
+## 4. API Layer
+- Expose system functionality through REST API endpoints.
+- Add authentication endpoints (register, login, logout).
+- Structure routes using clean separation between domain logic and request handling.
+- Introduce proper error responses and status codes.
+
+---
+
+## 5. Minimal Frontend
+- Build a lightweight interface for verifying API functionality.
+- Include basic pages for login, event browsing, event creation, and ticket management.
+- Use simple forms and minimal styling to validate full-stack behavior.
+
+---
+
+## 6. Deployment
+- Containerize backend and API services using Docker.
+- Deploy the application to AWS (ECS, EC2, or similar).
+- Configure environment variables, HTTPS, logging, and production settings.
+- Set up CI/CD through GitHub Actions.
+
+---
+
+## 7. Full Frontend Experience
+- Expand the UI into a polished interface using a modern framework (React, Vue, or Svelte).
+- Add routing, authentication flow, form validation, and responsive layouts.
+- Improve error handling, loading states, and overall user experience.
+
+---
+
+## 8. Logging, Monitoring & Testing
+- Implement request/response logging and error logging.
+- Add audit trails for key operations (event creation, purchases, account updates).
+- Write unit tests and integration tests for all API endpoints.
+- Conduct load testing for high-traffic workflows.
+
+---
+
+## 9. Feature Expansion
+- Add event search, filtering, and sorting capabilities.
+- Build admin tools for creating and managing events and users.
+- Integrate the existing recommendation engine to provide personalized event suggestions.
+- Support recurring events, categories, and advanced scheduling options.
+
+---
+
+
+
+

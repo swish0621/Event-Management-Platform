@@ -11,16 +11,17 @@ This project models a Ticketmaster-style system where users can act as attendees
 The core of this system revolves around **object-oriented design and architecture**.  
 It’s built to demonstrate real software structure using:
 
-- **Inheritance and polymorphism** across event and user hierarchies  
-- **Factory pattern** for dynamic event creation  
-- **Singleton pattern** for centralized event management  
-- **Encapsulation and abstraction** to isolate logic cleanly  
+- Inheritance and polymorphism across event and user hierarchies  
+- Factory pattern for dynamic event creation  
+- Singleton pattern for centralized event management  
+- Encapsulation and abstraction to isolate logic cleanly  
 - CSV-Parsing and loading 
-- **Catch2 testing** for automated validation of key features  
+- Catch2 testing for automated validation of key features  
 
 Everything ties together through an `EventManager` singleton that controls program flow, tracks users, manages events, and handles all financial logic (balances, profits, and ticket status updates).
 
 ---
+## CLI Interface
 <img width="693" height="195" alt="Event-Managment-Platform" src="https://github.com/user-attachments/assets/baf4fb14-775f-487c-ab93-129b536edb05" />
 
 ---
@@ -72,21 +73,20 @@ make
 ./main
 ```
 To run the test suite:
-```
+```bash
 make test
 ./test
 ```
 To clean build files:
-```
+```bash
 make clean
 ```
 
-# Future Plans
-
-This project is currently an MVP implementation of an event management backend.  
-The following roadmap outlines planned expansions to evolve the system into a fully functional, production-ready full-stack application.
-
----
+## Future Plans
+<details>
+  <summary>
+  Future Full-Stack Expansion Roadmap
+  </summary>
 
 ## 1. Architecture Expansion
 - Add support for user accounts with usernames, password hashes, emails, and roles/permissions.
@@ -154,7 +154,7 @@ The following roadmap outlines planned expansions to evolve the system into a fu
 - Support recurring events, categories, and advanced scheduling options.
 
 ---
-
+</details>
 
 
 

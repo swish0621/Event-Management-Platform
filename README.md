@@ -21,6 +21,9 @@ It’s built to demonstrate real software structure using:
 Everything ties together through an `EventManager` singleton that controls program flow, tracks users, manages events, and handles all financial logic (balances, profits, and ticket status updates).
 
 ---
+<img width="693" height="195" alt="Event-Managment-Platform" src="https://github.com/user-attachments/assets/baf4fb14-775f-487c-ab93-129b536edb05" />
+
+---
 
 ## Features
 
